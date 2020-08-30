@@ -15,7 +15,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.client.list')->with(['title' => CLIENTS_TITLE]);
     }
 
     /**

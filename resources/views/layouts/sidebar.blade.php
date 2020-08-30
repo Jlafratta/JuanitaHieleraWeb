@@ -35,7 +35,7 @@
             <ul class="vertical-nav-menu">
                 <li class="app-sidebar__heading">Contable</li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.sales') }}" class="mm<?php if($title == DAILY_SALES_TITLE){echo '-active';} ?>">
                         <i class="metismenu-icon pe-7s-graph2"></i>
                         Ventas
                     </a>
@@ -49,25 +49,25 @@
                 </li>
                 <li class="app-sidebar__heading">Informes</li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.tickets.index') }}" class="mm<?php if($title == TICKETS_TITLE){echo '-active';} ?>">
                         <i class="metismenu-icon pe-7s-note2"></i>
                         Tickets
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.clients.index') }}" class="mm<?php if($title == CLIENTS_TITLE){echo '-active';} ?>">
                         <i class="metismenu-icon pe-7s-users"></i>
                         Clientes
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.vehicles.index') }}" class="mm<?php if($title == VEHICLES_TITLE){echo '-active';} ?>">
                         <i class="metismenu-icon pe-7s-car"></i>
                         Vehiculos
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{ route('admin.products.index') }}" class="mm<?php if($title == PRODUCTS_TITLE){echo '-active';} ?>">
                         <i class="metismenu-icon pe-7s-ticket"></i>
                         Productos
                     </a>

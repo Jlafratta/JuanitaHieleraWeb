@@ -15,7 +15,7 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.vehicle.list')->with(['title' => VEHICLES_TITLE]);
     }
 
     /**

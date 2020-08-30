@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
-class TicketsController extends Controller
+class TicketController extends Controller
 {
     public function __construct()
     {
@@ -20,7 +20,7 @@ class TicketsController extends Controller
      */
     public function index()
     {
-        //
+        return view('dashboard.ticket.list')->with(['title'=> TICKETS_TITLE]);
     }
 
     /**
@@ -30,7 +30,7 @@ class TicketsController extends Controller
      */
     public function create()
     {
-        return view('dashboard.new-ticket')->with(['title'=> NEW_TICKET_TITLE]);
+        return view('dashboard.ticket.new')->with(['title'=> NEW_TICKET_TITLE]);
     }
 
     /**
@@ -87,5 +87,10 @@ class TicketsController extends Controller
     public function destroy(Ticket $ticket)
     {
         //
+    }
+
+    public function sales()
+    {
+        return view('dashboard.sales.daily')->with(['title'=> DAILY_SALES_TITLE]);
     }
 }

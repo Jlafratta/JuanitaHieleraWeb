@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Admin\TicketsController;
+use App\Http\Controllers\Admin\TicketController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $t = new TicketsController();
+        $t = new TicketController();
         
         return $t->create();     // AGREGAR QUE REDIRECCIONAMIENTO SEGUN ROL
     }
