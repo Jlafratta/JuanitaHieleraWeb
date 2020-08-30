@@ -33,6 +33,13 @@
     <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
+                <li class="app-sidebar__heading">Contable</li>
+                <li>
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-graph2"></i>
+                        Ventas
+                    </a>
+                </li>
                 <li class="app-sidebar__heading">Pesadas</li>
                 <li>
                     <a href="#" class="mm-active">
@@ -65,6 +72,13 @@
                         Productos
                     </a>
                 </li>
+                {{-- <li class="app-sidebar__heading">Usuarios</li>
+                <li>
+                    <a href="#">
+                        <i class="metismenu-icon pe-7s-note2"></i>
+                        Empleados
+                    </a>
+                </li> --}}
             </ul> 
         </div>
     </div>

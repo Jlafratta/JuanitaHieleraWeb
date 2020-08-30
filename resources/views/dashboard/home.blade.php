@@ -107,7 +107,7 @@
                                     </div>
                                     
                                     <div class="mt-4 divider"></div>
-                                    <div class="mt-4 text-right"><h5>$ 1200</h6></div>
+                                    <div class="mt-4 pr-4 text-right"><h5>$ 0.0</h6></div>
                                     
                                 </form>
                             </div>
