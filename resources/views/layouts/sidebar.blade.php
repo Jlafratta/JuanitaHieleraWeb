@@ -42,7 +42,7 @@
                 </li>
                 <li class="app-sidebar__heading">Pesadas</li>
                 <li>
-                    <a href="#" class="mm-active">
+                    <a href="{{ route('admin.tickets.create') }}" class="mm<?php if($title == NEW_TICKET_TITLE){echo '-active';} ?>">
                         <i class="metismenu-icon pe-7s-angle-right-circle"></i>
                         Nuevo ingreso
                     </a>

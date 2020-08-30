@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +20,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
+
+    Route::resource('/tickets', 'TicketsController', ['except' => ['edit', 'update']]);
+});
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Web Titles
+|--------------------------------------------------------------------------
+|
+|
+*/
+
+define('NEW_TICKET_TITLE', 'Nuevo ingreso');
