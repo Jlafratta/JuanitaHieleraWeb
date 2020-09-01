@@ -1,5 +1,9 @@
 @extends('layouts.dash')
 
+@section('title')
+    {{ __(NEW_TICKET_TITLE) }}    
+@endsection
+
 @section('content')
 
 <div class="app-main__outer">
