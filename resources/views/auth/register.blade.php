@@ -1,5 +1,9 @@
 @extends('layouts.entry')
 
+@section('title')
+    {{ __(REGISTER_TITLE) }}    
+@endsection
+
 @section('content')
 <div class="container">
     <div class="container mt-5">

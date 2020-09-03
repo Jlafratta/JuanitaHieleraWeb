@@ -1,5 +1,9 @@
 @extends('layouts.entry')
 
+@section('title')
+    {{ __(LOGIN_TITLE) }}    
+@endsection
+
 @section('content')
 
 <div class="container">

@@ -41,9 +41,16 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
 |
 */
 
+/* DASH Titles */
+
 define('NEW_TICKET_TITLE', 'JH | Nuevo ingreso');
 define('TICKETS_TITLE', 'JH | Tickets');
 define('CLIENTS_TITLE', 'JH | Clientes');
 define('VEHICLES_TITLE', 'JH | Vehiculos');
 define('PRODUCTS_TITLE', 'JH | Productos');
 define('DAILY_SALES_TITLE', 'JH | Ventas del dia');
+
+/* ENTRY Titles */
+
+define('LOGIN_TITLE', 'JH | Iniciar sesion');
+define('REGISTER_TITLE', 'JH | Registro');
