@@ -17,7 +17,11 @@ class CreateTicketsTable extends Migration
             $table->id();
             $table->string('idCompound');
             $table->date('date');
+            $table->float('bruto');
+            $table->float('tara');
             $table->float('neto');
+            $table->float('total');
+            $table->price('prodPrice');
             $table->timestamps();
         });
     }
