@@ -21,7 +21,7 @@ class CreateTicketsTable extends Migration
             $table->float('tara');
             $table->float('neto');
             $table->float('total');
-            $table->price('prodPrice');
+            $table->float('prodPrice');
             $table->timestamps();
         });
     }

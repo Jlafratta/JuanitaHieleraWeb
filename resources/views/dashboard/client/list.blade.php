@@ -65,45 +65,37 @@
                                         <th class="cursor-pointer" onclick="sortTable(4)">Provincia</th>
                                         <th>Telefono</th>
                                         <th></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Amanecer</td>
-                                        <td>Alberti 1300</td>
-                                        <td>Mar del Plata</td>
-                                        <td>Buenos Aires</td>
-                                        <td>2235997823</td>
-                                        <td class="text-center">
-                                            <button data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
-                                            <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Anochecer</td>
-                                        <td>La Rioja 2500</td>
-                                        <td>Tandil</td>
-                                        <td>Buenos Aires</td>
-                                        <td>2235458717</td>
-                                        <td class="text-center">
-                                            <button data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
-                                            <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Atardecer</td>
-                                        <td>Rio Negro 1500</td>
-                                        <td>Mar del Plata</td>
-                                        <td>C Buenos Aires</td>
-                                        <td>2235850258</td>
-                                        <td class="text-center">
-                                            <button data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
-                                            <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                        @if ($clients->isEmpty())
+                                        </tbody></table> 
+                                        <div class="text-center font-italic">No se encontraron clientes</div>
+                                        @endif
+                                    @foreach ($clients as $client)
+                                        <tr>
+                                            <th scope="row">{{ $client->id }}</th>
+                                            <td>{{ $client->name }}</td>
+                                            <td>{{ $client->address }}</td>
+                                            <td> - </td>
+                                            <td> - </td>
+                                            <td>{{ $client->phoneline }}</td>
+                                            <td class="text-right">
+                                                <form action="{{ route('admin.clients.edit', $client) }}" method="GET">
+                                                    @csrf
+                                                    <button type="submit" data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
+                                                </form>
+                                            </td>
+                                            <td class="text-left">
+                                                <form action="{{ route('admin.clients.destroy', $client) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -127,6 +119,8 @@
                                                               
                                 </div>
                                 <br>
+                                <form action="{{ route('admin.clients.store') }}" method="POST">
+                                    @csrf
                                 <div class="row">
         
                                     <div class="col-md-6">
@@ -202,12 +196,13 @@
 
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-md-6 p-">
-                                        <button class="btn btn-danger btn-lg btn-block mt-1">Reiniciar</button>
+                                        <button class="btn btn-danger btn-lg btn-block mt-1" type="reset">Reiniciar</button>
                                     </div>
                                     <div class="col-md-6">
-                                        <button class="btn btn-success btn-lg btn-block mt-1">Siguiente</button>
+                                        <button class="btn btn-success btn-lg btn-block mt-1" type="submit">Siguiente</button>
                                     </div>
                                 </div>
+                                </form>
 
                             </div>
                             
@@ -224,6 +219,9 @@
 </div>
 
 @endsection
+
+
+
 
 @section('javascript')
     <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>

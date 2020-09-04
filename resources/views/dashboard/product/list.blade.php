@@ -64,36 +64,33 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Hielo</td>
-                                        <td>Fresco</td>
-                                        <td>$ 0.65</td>
-                                        <td class="text-center">
-                                            <button data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
-                                            <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Hielin</td>
-                                        <td>Frescolin</td>
-                                        <td>$ 1.25</td>
-                                        <td class="text-center">
-                                            <button data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
-                                            <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Hielete</td>
-                                        <td>Fresquete</td>
-                                        <td>$ 0.75</td>
-                                        <td class="text-center">
-                                            <button data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
-                                            <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                        @if ($products->isEmpty())
+                                        </tbody></table> 
+                                        <div class="text-center font-italic">No se encontraron productos</div>
+                                        @endif
+
+                                        @foreach ($products as $product)
+                                        <tr>
+                                            <th scope="row">{{ $product->id }}</th>
+                                            <td>{{ $product->name }}</td>
+                                            <td>{{ $product->description }}</td>
+                                            <td>{{ '$ '. $product->price }}</td>
+                                            <td class="text-right">
+                                                <a href="{{ route('admin.products.edit', $product->id) }}" data-toggle="tooltip" 
+                                                title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></a>
+                                            </td>
+                                            <td class="text-left">
+                                                <form action="{{ route('admin.products.destroy', $product) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
+                                                </form>
+                                                
+                                            </td>
+                                        </tr>
+
+                                        @endforeach
+                                    
                                     </tbody>
                                 </table>
                             </div>
@@ -101,7 +98,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="tab-pane tabs-animation fade" id="tab-content-1" role="tabpanel">
                 <div class="row">
 
@@ -116,18 +112,20 @@
                                     </div>             
                                 </div>
                                 <br>
+                                <form action="{{ route('admin.products.store') }}" method="POST">
+                                    @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="name" class="">Nombre <span class="text-danger">*</span></label>
-                                            <input type="text" name="name" id="name" class="form-control">
+                                            <input type="text" name="name" id="name" class="form-control" required>
                                         </div>
                                     </div>
         
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="price" class="">Precio <span class="text-danger">*</span></label>
-                                            <input type="number" name="price" id="price" class="form-control">
+                                            <input type="number" step="0.01" name="price" id="price" class="form-control" required>
                                         </div>
                                     </div>
                                 </div>
@@ -143,13 +141,14 @@
 
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-md-6 p-">
-                                        <button class="btn btn-danger btn-lg btn-block mt-1">Reiniciar</button>
+                                        <button class="btn btn-danger btn-lg btn-block mt-1" type="reset">Reiniciar</button>
                                     </div>
                                     <div class="col-md-6">
-                                        <button class="btn btn-success btn-lg btn-block mt-1">Siguiente</button>
+                                        <button class="btn btn-success btn-lg btn-block mt-1" type="submit">Siguiente</button>
                                     </div>
                                 </div>
 
+                                </form>
                             </div>
                             
                         </div>
