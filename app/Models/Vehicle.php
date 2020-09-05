@@ -13,7 +13,7 @@ class Vehicle extends Model
      * @var array
      */
     protected $fillable = [
-        'patent', 'tara', 'model', 'client_name', 'client_id',
+        'patent', 'tara', 'model', 'client_name',
     ];
 
     public function client(){

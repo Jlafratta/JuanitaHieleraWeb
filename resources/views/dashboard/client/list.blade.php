@@ -171,14 +171,14 @@
                                 </div>
                                 <div class="row">
         
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <div class="position-relative form-group">
                                             <label for="address" class="">Domicilio<span class="text-danger">*</span></label>
                                             <input type="text" name="address" id="address" class="form-control">
                                         </div>
                                     </div>
                                         
-                                    <div class="col-md-6">
+                                    {{-- <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="locality" class="">Vehiculo</label>
                                             <select type="select" id="locality" name="locality" class="custom-select">
@@ -190,7 +190,7 @@
                                                 <option>Value 5</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     
                                 </div>
 

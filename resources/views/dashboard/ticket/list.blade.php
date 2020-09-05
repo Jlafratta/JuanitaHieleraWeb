@@ -69,42 +69,26 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">W-1</th>
-                                <td>27/08/2020</td>
-                                <td>23:47:50</td>
-                                <td>FOV212</td>
-                                <td>Empresa Ejemplo S.A.</td>
-                                <td>1500</td>
-                                <td class="text-center">
-                                    <button data-toggle="tooltip" title="Imprimir" data-placement="top" class="btn btn-primary  fa-lg"><i class=" pe-7s-print"></i></button> 
-                                    <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">W-2</th>
-                                <td>28/08/2020</td>
-                                <td>10:20:35</td>
-                                <td>FOV212</td>
-                                <td>Empresa Ejemplo S.A.</td>
-                                <td>1250</td>
-                                <td class="text-center">
-                                    <button data-toggle="tooltip" title="Imprimir" data-placement="top" class="btn btn-primary  fa-lg"><i class=" pe-7s-print"></i></button> 
-                                    <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope="row">W-3</th>
-                                <td>29/08/2020</td>
-                                <td>15:47:23</td>
-                                <td>AA22BB</td>
-                                <td>Cliente Ejemplo </td>
-                                <td>740</td>
-                                <td class="text-center">
-                                    <button data-toggle="tooltip" title="Imprimir" data-placement="top" class="btn btn-primary  fa-lg"><i class=" pe-7s-print"></i></button> 
-                                    <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                </td>
-                            </tr>
+                                @if ($tickets->isEmpty())
+                                    </tbody></table> 
+                                    <div class="text-center font-italic">No se encontraron tickets</div>
+                                @else   
+                                {{-- {{ $tickets }}    --}}
+                                @foreach ($tickets as $ticket)
+                                <tr>
+                                    <th scope="row">{{ $ticket->idCompound }}</th>
+                                    <td>{{ $ticket->date->format('d/m/Y') }}</td>
+                                    <td>{{ $ticket->date->format('H:i:s') }}</td>
+                                    <td>{{ $ticket->patent }}</td>
+                                    <td>{{ $ticket->client_name }}</td>
+                                    <td>{{ $ticket->neto }}</td>
+                                    <td class="text-center">
+                                        <button data-toggle="tooltip" title="Imprimir" data-placement="top" class="btn btn-primary  fa-lg"><i class=" pe-7s-print"></i></button> 
+                                        {{-- <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button> --}}
+                                    </td>
+                                </tr>
+                                @endforeach
+                                @endif
                             </tbody>
                         </table>
                     </div>

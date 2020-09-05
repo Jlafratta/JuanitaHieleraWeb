@@ -6,11 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
-    public function client(){
-        return $this->hasOne('App\Models\Client');
-    }
+    protected $dates = ['date'];
 
-    public function vehicle(){
-        return $this->hasOne('App\Models\Vehicle');
+    public function client(){
+        return $this->belongsTo('App\Models\Client');
     }
+    
 }

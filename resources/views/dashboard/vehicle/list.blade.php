@@ -162,6 +162,7 @@
                                             <select type="select" id="client" name="clientId" class="custom-select" required>
                                                 @foreach ($clients as $client)
                                                     <option value="{{ $client->id }}">{{ '['.$client->id.'] '. $client->name }}</option>
+                                                    {{-- <input type="text" name="clientName" hidden="" value="{{ $client->name }}"> --}}
                                                 @endforeach
                                             </select>
                                         </div>

@@ -15,12 +15,12 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('admin/tickets/create');
 });
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/admin/create', 'Admin\TicketController@create')->name('home');
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
 
@@ -30,6 +30,8 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('/products', 'ProductController', ['except' => ['create']]);
     Route::resource('/vehicles', 'VehicleController', ['except' => ['create']]);
 });
+
+// ruta para actualizar select
 
 
 

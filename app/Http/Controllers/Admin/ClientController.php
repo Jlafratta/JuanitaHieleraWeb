@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -12,6 +13,7 @@ class ClientController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -108,6 +110,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
+        $client->tickets()->detach(); //desasocio la fk
         $client->delete();
         return redirect('admin/clients');
     }

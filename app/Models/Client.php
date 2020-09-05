@@ -19,4 +19,8 @@ class Client extends Model
     public function vehicles(){
         return $this->hasMany('App\Models\Vehicle');
     }
+
+    public function tickets(){
+        return $this->hasMany('App\Models\Ticket');
+    }
 }

@@ -46,13 +46,16 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        Vehicle::create([
-            'patent' => $request->patent,
-            'tara' => $request->tara,
-            'model' => $request->model,
-            'client_name' => $request->clientName,
-            'client_id' => $request->clientId
-        ]);
+        $vehicle = new Vehicle();
+
+        $vehicle->client()->associate(Client::find($request->clientId));
+        
+        $vehicle->patent = $request->patent;
+        $vehicle->tara = $request->tara;
+        $vehicle->model = $request->model;
+        $vehicle->client_name = $vehicle->client->name;
+        
+        $vehicle->save();
 
         return redirect('admin/vehicles');
     }

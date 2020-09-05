@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
+use App\Models\Product;
 use App\Models\Ticket;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class TicketController extends Controller
 {
@@ -20,7 +24,11 @@ class TicketController extends Controller
      */
     public function index()
     {
-        return view('dashboard.ticket.list')->with(['title'=> TICKETS_TITLE]);
+        $tickets = Ticket::all();
+
+        return view('dashboard.ticket.list')
+        ->with(['title'=> TICKETS_TITLE,
+                'tickets' => $tickets]);
     }
 
     /**
@@ -30,7 +38,14 @@ class TicketController extends Controller
      */
     public function create()
     {
-        return view('dashboard.ticket.new')->with(['title'=> NEW_TICKET_TITLE]);
+        $clients = Client::all();
+        $vehicles = Vehicle::all();
+        $products = Product::all();
+        return view('dashboard.ticket.new')
+        ->with(['title'=> NEW_TICKET_TITLE,
+                'clients' => $clients,
+                'vehicles' => $vehicles,
+                'products' => $products]);
     }
 
     /**
@@ -41,7 +56,24 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $ticket = new Ticket();
+        $ticket->client()->associate(Client::find($request->clientId));
+
+        $ticket->date = Carbon::now()->toDateTimeString();
+        $ticket->bruto = $request->bruto;
+        $ticket->tara = $request->tara;
+        $ticket->neto = $ticket->bruto - $ticket->tara;
+        $ticket->prodPrice = Product::find($request->productId)->price;
+        $ticket->total = $ticket->prodPrice * $ticket->neto;
+        $ticket->client_name = $ticket->client->name;
+        $ticket->patent = Vehicle::find($request->vehicleId)->patent;
+        $ticket->save();
+        $ticket->idCompound = "W - ". $ticket->id;
+        $ticket->save();
+
+        
+        return redirect('admin/tickets/create');       // AGREGAR IMPRESION ANTES
     }
 
     /**
