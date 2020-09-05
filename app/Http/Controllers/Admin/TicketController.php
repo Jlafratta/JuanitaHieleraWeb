@@ -86,16 +86,16 @@ class TicketController extends Controller
         return redirect('admin/tickets/create');       // AGREGAR IMPRESION ANTES
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ticket $ticket)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  \App\Models\Ticket  $ticket
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show(Ticket $ticket)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -120,16 +120,16 @@ class TicketController extends Controller
     //     //
     // }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
-    }
+    // /**
+    //  * Remove the specified resource from storage.
+    //  *
+    //  * @param  \App\Models\Ticket  $ticket
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function destroy(Ticket $ticket)
+    // {
+    //     //
+    // }
 
     public function sales()
     {

@@ -72,13 +72,13 @@
                         Productos
                     </a>
                 </li>
-                {{-- <li class="app-sidebar__heading">Usuarios</li>
+                <li class="app-sidebar__heading">Usuarios</li>
                 <li>
-                    <a href="#">
-                        <i class="metismenu-icon pe-7s-note2"></i>
+                    <a href="{{ route('admin.users.index') }}" class="mm<?php if($title == USERS_TITLE){echo '-active';} ?>">
+                        <i class="metismenu-icon pe-7s-id"></i>
                         Empleados
                     </a>
-                </li> --}}
+                </li>
             </ul> 
         </div>
     </div>
