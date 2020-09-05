@@ -109,7 +109,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        $client->tickets()->detach(); //desasocio la fk
+        //$client->tickets()->detach(); //desasocio la fk
         $client->delete();
         return redirect('admin/clients');
     }

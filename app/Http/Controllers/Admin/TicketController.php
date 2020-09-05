@@ -68,16 +68,27 @@ class TicketController extends Controller
     {
         // dd($request);
         $ticket = new Ticket();
-        $ticket->client()->associate(Client::find($request->clientId));
 
+        //if
+        if($request->clientId == 0){
+            $ticket->client_name = "CONTADO";
+            $ticket->client_id = 0;
+        }else{
+            $ticket->client()->associate(Client::find($request->clientId));
+            $ticket->client_name = $ticket->client->name;
+            if($request->vehicleId){
+                $ticket->patent = Vehicle::find($request->vehicleId)->patent;
+            }
+        }
+        
         $ticket->date = Carbon::now()->toDateTimeString();
         $ticket->bruto = $request->bruto;
         $ticket->tara = $request->tara;
         $ticket->neto = $ticket->bruto - $ticket->tara;
         $ticket->prodPrice = Product::find($request->productId)->price;
         $ticket->total = $ticket->prodPrice * $ticket->neto;
-        $ticket->client_name = $ticket->client->name;
-        $ticket->patent = Vehicle::find($request->vehicleId)->patent;
+        
+
         $ticket->save();
         $ticket->idCompound = "W-". $ticket->id;
         $ticket->save();

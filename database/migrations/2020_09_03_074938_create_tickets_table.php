@@ -16,7 +16,7 @@ class CreateTicketsTable extends Migration
     {
         Schema::create('tickets', function (Blueprint $table) {
             $table->id();
-            $table->string('idCompound')->default('W - ');
+            $table->string('idCompound')->default('W-');
             $table->datetime('date');
             $table->float('bruto');
             $table->float('tara');
@@ -25,7 +25,7 @@ class CreateTicketsTable extends Migration
             $table->float('prodPrice');
 
             $table->string('client_name');
-            $table->string('patent');
+            $table->string('patent')->nullable();
 
             $table->bigInteger('client_id')->unsigned();
 

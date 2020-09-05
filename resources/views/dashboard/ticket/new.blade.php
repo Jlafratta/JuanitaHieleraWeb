@@ -45,7 +45,7 @@
                                 <div class="position-relative form-group">
                                     <label for="exampleCustomSelect" class="">Nombre</label>
                                     <select type="select" id="clients" name="clientId" class="custom-select">
-                                        {{-- <option value="">Seleccionar</option> --}}
+                                        <option value="">CONTADO</option>
                                         @foreach ($clients as $client)
                                         <option value="{{ $client->id}}">{{ $client->name }}</option>
                                         @endforeach
