@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Vehicle extends Model
 {
@@ -18,5 +19,19 @@ class Vehicle extends Model
 
     public function client(){
         return $this->belongsTo('App\Models\Client');
+    }
+
+    // Scope
+
+    public function scopeClient($query, $clientId){
+        if($clientId){
+            return $query->where('client_id', $clientId);
+        }
+    }
+
+    public function scopePatent($query, $patent){
+        if($patent){
+            return $query->where('patent', 'LIKE', "$patent%");
+        }
     }
 }

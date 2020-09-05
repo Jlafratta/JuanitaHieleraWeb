@@ -53,17 +53,22 @@
                                         <h5 class="card-title mt-2">Listado de vehiculos</h5>
                                     </div>  
                                     <div class="position-relative form-group">
-                                        <form action="">
+                                        <form action="{{ route('admin.vehicles.index') }}" method="GET">
                                             <div class="custom-checkbox custom-control custom-control-inline mb-1">
-                                                <select class="form-control" type="text" name="" id="" placeholder="Seleccionar cliente...">
+                                                <select class="form-control" type="text" name="clientId" placeholder="Seleccionar cliente...">
                                                     <option value="">Seleccionar cliente</option>
-                                                    <option value="">Amanecer</option>
-                                                    <option value="">Anochecer</option>
-                                                    <option value="">Atardecer</option>
+                                                    @foreach ($clientsFilter as $client)
+                                                    <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="custom-checkbox custom-control custom-control-inline">
-                                                <input class="form-control mr-1" type="text" name="" id="" placeholder="Ingrese patente...">
+                                                @if(request('patent'))
+                                                <input class="form-control mr-1" type="text" name="patent" value="{{ request('patent') }}">
+                                                @else
+                                                <input class="form-control mr-1" type="text" name="patent"  placeholder="Ingrese patente...">
+                                                @endif
+                                                
                                                 <button class="btn btn-light btn-icon" type="submit"><i class="fa fa-lg fa-search"></i></button>
                                             </div>
                                         </form>
@@ -96,7 +101,7 @@
                                                 <a href="{{ route('admin.vehicles.edit', $vehicle->id) }}" data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></a> 
                                             </td>
                                             <td class="text-left">
-                                                <form action="{{ route('admin.vehicles.destroy', $vehicle) }}" method="POST">
+                                                <form action="{{ route('admin.vehicles.destroy', $vehicle->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
@@ -106,7 +111,8 @@
                                         @endforeach
                                     
                                     </tbody>
-                                </table>
+                                </table><br>
+                                <div class="d-flex justify-content-center pagination ">{{ $vehicles->render() }}</div>
                             </div>
                         </div>
                     </div>
@@ -162,7 +168,6 @@
                                             <select type="select" id="client" name="clientId" class="custom-select" required>
                                                 @foreach ($clients as $client)
                                                     <option value="{{ $client->id }}">{{ '['.$client->id.'] '. $client->name }}</option>
-                                                    {{-- <input type="text" name="clientName" hidden="" value="{{ $client->name }}"> --}}
                                                 @endforeach
                                             </select>
                                         </div>

@@ -25,7 +25,7 @@ Route::get('/admin/create', 'Admin\TicketController@create')->name('home');
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
 
     Route::resource('/tickets', 'TicketController', ['except' => ['edit', 'update']]);
-         Route::get('/sales', 'TicketController@sales')->name('sales');
+        Route::get('/sales', 'TicketController@sales')->name('sales');
     Route::resource('/clients', 'ClientController', ['except' => ['create']]);
     Route::resource('/products', 'ProductController', ['except' => ['create']]);
     Route::resource('/vehicles', 'VehicleController', ['except' => ['create']]);

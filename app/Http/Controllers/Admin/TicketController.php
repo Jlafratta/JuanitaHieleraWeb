@@ -9,6 +9,7 @@ use App\Models\Ticket;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller
 {
@@ -22,13 +23,22 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::all();
+        $clientId = $request->get('clientId');
+        $date = $request->get('dateFilter');
+        
+        $clients = Client::getWithTickets();
+
+        $tickets = Ticket::orderBy('id', 'DESC')
+            ->client($clientId)
+            ->date($date)
+            ->paginate(10);
 
         return view('dashboard.ticket.list')
         ->with(['title'=> TICKETS_TITLE,
-                'tickets' => $tickets]);
+                'tickets' => $tickets,
+                'clients' => $clients]);
     }
 
     /**
@@ -69,7 +79,7 @@ class TicketController extends Controller
         $ticket->client_name = $ticket->client->name;
         $ticket->patent = Vehicle::find($request->vehicleId)->patent;
         $ticket->save();
-        $ticket->idCompound = "W - ". $ticket->id;
+        $ticket->idCompound = "W-". $ticket->id;
         $ticket->save();
 
         

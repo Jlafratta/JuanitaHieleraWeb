@@ -19,13 +19,23 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $clientId = $request->get('clientId');
+        $patent = $request->get('patent');
+        $clients = Client::all();
+        $clientsFilter = Client::getWithVehicles();
+
+        $vehicles = Vehicle::orderBy('id', 'DESC')
+            ->client($clientId)
+            ->patent($patent)
+            ->paginate(10);
+
         return view('dashboard.vehicle.list')
         ->with(['title' => VEHICLES_TITLE,
-                'vehicles' => Vehicle::all(),
-                'clients' => Client::all()
-                ]);
+                'vehicles' => $vehicles,
+                'clients' => $clients,
+                'clientsFilter' => $clientsFilter ]);
     }
 
     // /**

@@ -37,17 +37,21 @@
                                 <h5 class="card-title mt-2">Listado de tickets</h5>
                             </div>
                             <div class="position-relative form-group">
-                                <form action="">
+                                <form action="{{ route('admin.tickets.index') }}" method="GET">
                                     <div class="custom-control custom-control-inline mb-1">
-                                        <select class="form-control" type="text" name="" id="" placeholder="Seleccionar cliente...">
-                                            <option value="">Seleccionar cliente</option>
-                                            <option value="">Amanecer</option>
-                                            <option value="">Anochecer</option>
-                                            <option value="">Atardecer</option>
+                                        <select class="form-control" type="text" name="clientId" placeholder="Seleccionar cliente...">
+                                            <option value="">Seleccionar cliente</option> 
+                                            @foreach ($clients as $client)
+                                            <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="custom-control custom-control-inline">
-                                        <input class="form-control mr-1" type="date" name="" id="">
+                                        @if(request('dateFilter'))
+                                            <input class="form-control mr-1" type="date" name="dateFilter" value="{{ request('dateFilter') }}">
+                                        @else
+                                            <input class="form-control mr-1" type="date" name="dateFilter">
+                                        @endif
                                         <button class="btn btn-light btn-icon" type="submit"><i class="fa fa-lg fa-search"></i></button>
                                     </div>
                                     
@@ -90,7 +94,9 @@
                                 @endforeach
                                 @endif
                             </tbody>
-                        </table>
+                        </table><br>
+                        <div class="d-flex justify-content-center pagination ">{{ $tickets->render() }}</div>
+                        
                     </div>
                 </div>
             </div>
