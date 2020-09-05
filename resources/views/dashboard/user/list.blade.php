@@ -1,7 +1,7 @@
 @extends('layouts.dash')
 
 @section('title')
-    {{ __(PRODUCTS_TITLE) }}    
+    {{ __(USERS_TITLE) }}    
 @endsection
 
 @section('css')
@@ -19,14 +19,13 @@
                 <div class="page-title-heading">
                     <div class="page-title-icon">
                         <div class="font-icon-lg">
-                            <i class="fa fa-snowflake icon-snow" aria-hidden="true"></i>
+                            <i class="fa fa-address-card" aria-hidden="true"></i>
                         </div>
                     </div>
                     
-                    <div class="h1">Productos</div>
+                    <div class="h1">Empleados</div>
                 </div>
             </div>
-            
         </div>  {{-- end title --}}   
         <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
             <li class="nav-item">
@@ -48,7 +47,7 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        <h5 class="card-title">Listado de productos</h5>
+                                        <h5 class="card-title">Listado de empleados</h5>
                                     </div>              
                                 </div>
                                 
@@ -56,36 +55,35 @@
                                 <table id="tableSortable" class="mb-0 table-responsive-xl table  table-striped table-hover">
                                     <thead>
                                     <tr>
-                                        <th class="cursor-pointer" onclick="sortTable(0)">#</th>
-                                        <th class="cursor-pointer" onclick="sortTable(1)">Nombre</th>
-                                        <th class="cursor-pointer" onclick="sortTable(2)">Descripcion</th>
-                                        <th class="cursor-pointer" onclick="sortTable(3)">Precio (kg)</th>
-                                        <th></th>
+                                        <th >Nombre</th>
+                                        <th >Correo</th>
+                                        <th >Cargo</th>
+                                        <th></th><th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                        @if ($products->isEmpty())
+                                        @if ($users->isEmpty())
                                         </tbody></table> 
-                                        <div class="text-center font-italic">No se encontraron productos</div>
+                                        <div class="text-center font-italic">No se encontraron empleados</div>
                                         @endif
 
-                                        @foreach ($products as $product)
+                                        @foreach ($users as $user)
                                         <tr>
-                                            <th scope="row">{{ $product->id }}</th>
-                                            <td>{{ $product->name }}</td>
-                                            <td>{{ $product->description }}</td>
-                                            <td>{{ '$ '. $product->price }}</td>
+                                            <td scope="row">{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ "Empleado" }}</td>
                                             <td class="text-right">
-                                                <a href="{{ route('admin.products.edit', $product->id) }}" data-toggle="tooltip" 
+                                                <a href="{{ route('admin.users.edit', $user->id) }}" data-toggle="tooltip" 
                                                 title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></a>
                                             </td>
                                             <td class="text-left">
-                                                <form action="{{ route('admin.products.destroy', $product) }}" method="POST">
+                                                @if ($user != Auth::user())
+                                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
                                                 </form>
-                                                
+                                                @endif
                                             </td>
                                         </tr>
 
@@ -107,37 +105,76 @@
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         
-                                        <h5 class="card-title">Producto</h5>
+                                        <h5 class="card-title">Empleado</h5>
                                         
                                     </div>             
                                 </div>
                                 <br>
-                                <form action="{{ route('admin.products.store') }}" method="POST">
+                                <form action="{{ route('admin.users.store') }}" method="POST">
                                     @csrf
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="name" class="">Nombre <span class="text-danger">*</span></label>
-                                            <input type="text" name="name" id="name" class="form-control" required>
+                                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+
+                                            @error('name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
         
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
-                                            <label for="price" class="">Precio <span class="text-danger">*</span></label>
-                                            <input type="number" step="0.01" name="price" id="price" class="form-control" required>
+                                            <label for="price" class="">Correo electrónico <span class="text-danger">*</span></label>
+                                            
+                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-6"><label for="description" class="mb-3">Cargo <span class="text-danger">*</span> <br></label>
+                                        <div class="position-relative form-check d-flex justify-content-between mb-3">
+                                            <label for="emp" class="form-check-label cursor-pointer">
+                                                <input type="radio" name="rol" id="emp" class="form-check-control" checked="checked" required> Empleado
+                                            </label>
+                                            <label for="adm" class="form-check-label cursor-pointer">
+                                                <input type="radio" name="rol" id="adm" class="form-check-control"> Administrador
+                                                
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
                                         <div class="position-relative form-group">
-                                            <label for="description" class="">Descripcion </label>
-                                            <input type="text" name="description" id="description" class="form-control">
+                                            <label for="description" class="">Contraseña <span class="text-danger">*</span> </label>
+                                            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </div>
                                     </div>
                                 </div>
-                                
+                                <div class="row">
+                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            <label for="description" class="">Confirmar contraseña <span class="text-danger">*</span> </label>
+                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-md-6 p-">

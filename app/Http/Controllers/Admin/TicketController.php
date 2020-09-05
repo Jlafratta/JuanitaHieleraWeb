@@ -3,8 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
+use App\Models\Product;
 use App\Models\Ticket;
+use App\Models\Vehicle;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller
 {
@@ -18,9 +23,22 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard.ticket.list')->with(['title'=> TICKETS_TITLE]);
+        $clientId = $request->get('clientId');
+        $date = $request->get('dateFilter');
+        
+        $clients = Client::getWithTickets();
+
+        $tickets = Ticket::orderBy('id', 'DESC')
+            ->client($clientId)
+            ->date($date)
+            ->paginate(10);
+
+        return view('dashboard.ticket.list')
+        ->with(['title'=> TICKETS_TITLE,
+                'tickets' => $tickets,
+                'clients' => $clients]);
     }
 
     /**
@@ -30,7 +48,14 @@ class TicketController extends Controller
      */
     public function create()
     {
-        return view('dashboard.ticket.new')->with(['title'=> NEW_TICKET_TITLE]);
+        $clients = Client::all();
+        $vehicles = Vehicle::all();
+        $products = Product::all();
+        return view('dashboard.ticket.new')
+        ->with(['title'=> NEW_TICKET_TITLE,
+                'clients' => $clients,
+                'vehicles' => $vehicles,
+                'products' => $products]);
     }
 
     /**
@@ -41,19 +66,36 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        $ticket = new Ticket();
+        $ticket->client()->associate(Client::find($request->clientId));
+
+        $ticket->date = Carbon::now()->toDateTimeString();
+        $ticket->bruto = $request->bruto;
+        $ticket->tara = $request->tara;
+        $ticket->neto = $ticket->bruto - $ticket->tara;
+        $ticket->prodPrice = Product::find($request->productId)->price;
+        $ticket->total = $ticket->prodPrice * $ticket->neto;
+        $ticket->client_name = $ticket->client->name;
+        $ticket->patent = Vehicle::find($request->vehicleId)->patent;
+        $ticket->save();
+        $ticket->idCompound = "W-". $ticket->id;
+        $ticket->save();
+
+        
+        return redirect('admin/tickets/create');       // AGREGAR IMPRESION ANTES
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ticket $ticket)
-    {
-        //
-    }
+    // /**
+    //  * Display the specified resource.
+    //  *
+    //  * @param  \App\Models\Ticket  $ticket
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function show(Ticket $ticket)
+    // {
+    //     //
+    // }
 
     /**
      * Show the form for editing the specified resource.
@@ -78,16 +120,16 @@ class TicketController extends Controller
     //     //
     // }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
-    }
+    // /**
+    //  * Remove the specified resource from storage.
+    //  *
+    //  * @param  \App\Models\Ticket  $ticket
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function destroy(Ticket $ticket)
+    // {
+    //     //
+    // }
 
     public function sales()
     {

@@ -17,7 +17,12 @@ class CreateVehiclesTable extends Migration
             $table->id();
             $table->string('patent', 10);
             $table->float('tara');
-            $table->string('model', 50);
+            $table->string('model', 50)->nullable();
+            $table->string('client_name');
+
+            $table->bigInteger('client_id')->unsigned();
+            $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
+            // Al eliminarse el cliente, se eliminan sus vehiculos
 
             $table->timestamps();
         });

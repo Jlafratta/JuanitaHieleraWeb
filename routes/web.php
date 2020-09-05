@@ -15,21 +15,24 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('admin/tickets/create');
 });
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/admin/create', 'Admin\TicketController@create')->name('home');
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
 
-    Route::resource('/tickets', 'TicketController', ['except' => ['edit', 'update']]);
-         Route::get('/sales', 'TicketController@sales')->name('sales');
-    Route::resource('/clients', 'ClientController');
-    Route::resource('/products', 'ProductController');
-    Route::resource('/vehicles', 'VehicleController');
+    Route::resource('/tickets', 'TicketController', ['except' => ['edit', 'update', 'show', 'destroy']]);
+        Route::get('/sales', 'TicketController@sales')->name('sales');
+    Route::resource('/clients', 'ClientController', ['except' => ['create']]);
+    Route::resource('/products', 'ProductController', ['except' => ['create']]);
+    Route::resource('/vehicles', 'VehicleController', ['except' => ['create']]);
+    Route::resource('/users', 'UserController', ['except' => ['create']]);
 });
+
+// ruta para actualizar select
 
 
 
@@ -54,3 +57,4 @@ define('DAILY_SALES_TITLE', 'JH | Ventas del dia');
 
 define('LOGIN_TITLE', 'JH | Iniciar sesion');
 define('REGISTER_TITLE', 'JH | Registro');
+define('USERS_TITLE', 'JH | Empleados');

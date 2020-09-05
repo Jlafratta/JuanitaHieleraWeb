@@ -19,18 +19,20 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('dashboard.product.list')->with(['title' => PRODUCTS_TITLE]);
+        return view('dashboard.product.list')
+        ->with(['title' => PRODUCTS_TITLE,
+                'products' => Product::all()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    // /**
+    //  * Show the form for creating a new resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -40,7 +42,12 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Product::create([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price
+        ]);
+        return redirect('admin/products');
     }
 
     /**
@@ -62,7 +69,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('dashboard.product.edit')
+        ->with(['title' => PRODUCTS_TITLE,
+                'product' => $product]);
     }
 
     /**
@@ -74,7 +83,17 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'price'=> 'required'
+        ]);
+
+        $product->name = $request->name;
+        $product->price = $request->price;
+
+        $product->update();
+
+        return redirect('admin/products');
     }
 
     /**
@@ -85,6 +104,8 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect('admin/products');
     }
+    
 }

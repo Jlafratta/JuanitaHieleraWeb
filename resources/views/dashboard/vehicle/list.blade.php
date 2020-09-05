@@ -53,17 +53,22 @@
                                         <h5 class="card-title mt-2">Listado de vehiculos</h5>
                                     </div>  
                                     <div class="position-relative form-group">
-                                        <form action="">
+                                        <form action="{{ route('admin.vehicles.index') }}" method="GET">
                                             <div class="custom-checkbox custom-control custom-control-inline mb-1">
-                                                <select class="form-control" type="text" name="" id="" placeholder="Seleccionar cliente...">
+                                                <select class="form-control" type="text" name="clientId" placeholder="Seleccionar cliente...">
                                                     <option value="">Seleccionar cliente</option>
-                                                    <option value="">Amanecer</option>
-                                                    <option value="">Anochecer</option>
-                                                    <option value="">Atardecer</option>
+                                                    @foreach ($clientsFilter as $client)
+                                                    <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                             <div class="custom-checkbox custom-control custom-control-inline">
-                                                <input class="form-control mr-1" type="text" name="" id="" placeholder="Ingrese patente...">
+                                                @if(request('patent'))
+                                                <input class="form-control mr-1" type="text" name="patent" value="{{ request('patent') }}">
+                                                @else
+                                                <input class="form-control mr-1" type="text" name="patent"  placeholder="Ingrese patente...">
+                                                @endif
+                                                
                                                 <button class="btn btn-light btn-icon" type="submit"><i class="fa fa-lg fa-search"></i></button>
                                             </div>
                                         </form>
@@ -82,38 +87,32 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <th scope="row">WUY457</th>
-                                        <td>1500</td>
-                                        <td>Ford F100</td>
-                                        <td>1 - Amanecer</td>
-                                        <td class="text-center">
-                                            <button data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
-                                            <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">FOV212</th>
-                                        <td>700</td>
-                                        <td>Mercedes</td>
-                                        <td>2 - Anochecer</td>
-                                        <td class="text-center">
-                                            <button data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
-                                            <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">AA111BB</th>
-                                        <td>1800</td>
-                                        <td>Iveco</td>
-                                        <td>3 - Atardecer</td>
-                                        <td class="text-center">
-                                            <button data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
-                                            <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
-                                        </td>
-                                    </tr>
+                                        @if ($vehicles->isEmpty())
+                                        </tbody></table> 
+                                        <div class="text-center font-italic">No se encontraron vehiculos</div>
+                                        @endif
+                                        @foreach ($vehicles as $vehicle)
+                                        <tr>
+                                            <th scope="row">{{ $vehicle->patent }}</th>
+                                            <td>{{ $vehicle->tara }}</td>
+                                            <td>{{ $vehicle->model }}</td>
+                                            <td>{{ '['.$vehicle->client_id.'] '.$vehicle->client_name }}</td>
+                                            <td class="text-right">
+                                                <a href="{{ route('admin.vehicles.edit', $vehicle->id) }}" data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></a> 
+                                            </td>
+                                            <td class="text-left">
+                                                <form action="{{ route('admin.vehicles.destroy', $vehicle->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    
                                     </tbody>
-                                </table>
+                                </table><br>
+                                <div class="d-flex justify-content-center pagination ">{{ $vehicles->render() }}</div>
                             </div>
                         </div>
                     </div>
@@ -126,6 +125,10 @@
                     <div class="col-md-6">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
+                                
+                                <form action="{{ route('admin.vehicles.store') }}" method="POST">
+                                @csrf
+
                                 <div class="d-flex justify-content-between">
                                     <div>
                                         
@@ -138,14 +141,14 @@
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="patent" class="">Patente <span class="text-danger">*</span></label>
-                                            <input type="text" name="patent" id="patent" class="form-control">
+                                            <input type="text" name="patent" id="patent" class="form-control" required>
                                         </div>
                                     </div>
         
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="tara" class="">Tara <span class="text-danger">*</span></label>
-                                            <input type="number" name="tara" id="tara" class="form-control">
+                                            <input type="number" value="0" step="0.01" name="tara" id="tara" class="form-control" required>
                                         </div>
                                     </div>
                                     
@@ -161,14 +164,11 @@
         
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
-                                            <label for="client" class="">Cliente <span class="text-danger">*</span></label>
-                                            <select type="select" id="client" name="client" class="custom-select">
-                                                <option value="">Seleccionar</option>
-                                                <option>Value 1</option>
-                                                <option>Value 2</option>
-                                                <option>Value 3</option>
-                                                <option>Value 4</option>
-                                                <option>Value 5</option>
+                                            <label for="client" >Cliente <span class="text-danger">*</span></label>
+                                            <select type="select" id="client" name="clientId" class="custom-select" required>
+                                                @foreach ($clients as $client)
+                                                    <option value="{{ $client->id }}">{{ '['.$client->id.'] '. $client->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -178,12 +178,14 @@
 
                                 <div class="row d-flex justify-content-center">
                                     <div class="col-md-6 p-">
-                                        <button class="btn btn-danger btn-lg btn-block mt-1">Reiniciar</button>
+                                        <button class="btn btn-danger btn-lg btn-block mt-1" type="reset">Reiniciar</button>
                                     </div>
                                     <div class="col-md-6">
-                                        <button class="btn btn-success btn-lg btn-block mt-1">Siguiente</button>
+                                        <button class="btn btn-success btn-lg btn-block mt-1" type="submit">Siguiente</button>
                                     </div>
                                 </div>
+
+                                </form>
 
                             </div>
                             

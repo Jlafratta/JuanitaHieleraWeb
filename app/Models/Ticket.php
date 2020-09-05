@@ -6,11 +6,25 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
+    protected $dates = ['date'];
+
     public function client(){
-        return $this->hasOne('App\Models\Client');
+        return $this->belongsTo('App\Models\Client');
     }
 
-    public function vehicle(){
-        return $this->hasOne('App\Models\Vehicle');
+
+    // Scope
+
+    public function scopeClient($query, $clientId){
+        if($clientId){
+            return $query->where('client_id', $clientId);
+        }
     }
+
+    public function scopeDate($query, $date){
+        if($date){
+            return $query->where('date', 'LIKE', "%$date%");
+        }
+    }
+    
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 
@@ -18,20 +19,34 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('dashboard.vehicle.list')->with(['title' => VEHICLES_TITLE]);
+        $clientId = $request->get('clientId');
+        $patent = $request->get('patent');
+        $clients = Client::all();
+        $clientsFilter = Client::getWithVehicles();
+
+        $vehicles = Vehicle::orderBy('id', 'DESC')
+            ->client($clientId)
+            ->patent($patent)
+            ->paginate(10);
+
+        return view('dashboard.vehicle.list')
+        ->with(['title' => VEHICLES_TITLE,
+                'vehicles' => $vehicles,
+                'clients' => $clients,
+                'clientsFilter' => $clientsFilter ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    // /**
+    //  * Show the form for creating a new resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -41,7 +56,18 @@ class VehicleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $vehicle = new Vehicle();
+
+        $vehicle->client()->associate(Client::find($request->clientId));
+        
+        $vehicle->patent = $request->patent;
+        $vehicle->tara = $request->tara;
+        $vehicle->model = $request->model;
+        $vehicle->client_name = $vehicle->client->name;
+        
+        $vehicle->save();
+
+        return redirect('admin/vehicles');
     }
 
     /**
@@ -63,7 +89,9 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        //
+        return view('dashboard.vehicle.edit')
+        ->with(['title' => VEHICLES_TITLE,
+                'vehicle' => $vehicle]);
     }
 
     /**
@@ -75,7 +103,18 @@ class VehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle)
     {
-        //
+        $request->validate([
+            'patent'=>'required',
+            'tara'=> 'required'
+        ]);
+
+        $vehicle->patent = $request->patent;
+        $vehicle->tara = $request->tara;
+
+
+        $vehicle->update();
+
+        return redirect('admin/vehicles');
     }
 
     /**
@@ -86,6 +125,7 @@ class VehicleController extends Controller
      */
     public function destroy(Vehicle $vehicle)
     {
-        //
+        $vehicle->delete();
+        return redirect('admin/vehicles');
     }
 }

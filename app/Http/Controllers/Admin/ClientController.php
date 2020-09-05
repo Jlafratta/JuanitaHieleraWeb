@@ -12,6 +12,7 @@ class ClientController extends Controller
     {
         $this->middleware('auth');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,18 +20,21 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('dashboard.client.list')->with(['title' => CLIENTS_TITLE]);
+        $clients = Client::all();
+        return view('dashboard.client.list')
+        ->with(['title' => CLIENTS_TITLE, 
+                'clients' => $clients]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    // /**
+    //  * Show the form for creating a new resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function create()
+    // {
+    //     //
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -40,7 +44,13 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Client::create([
+            'name' => $request->name,
+            'address' => $request->address,
+            'phoneline' => $request->phoneline
+        ]);
+
+        return redirect('admin/clients');  // retorno redirect, no view xq sino hace reenvio de formulario al refrescar
     }
 
     /**
@@ -62,7 +72,9 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('dashboard.client.edit')
+        ->with(['title' => CLIENTS_TITLE,
+                'client' => $client]);
     }
 
     /**
@@ -74,7 +86,19 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'phoneline'=> 'required',
+            'address' => 'required'
+        ]);
+
+        $client->name = $request->name;
+        $client->phoneline = $request->phoneline;
+        $client->address = $request->address;
+
+        $client->update();
+
+        return redirect('admin/clients');
     }
 
     /**
@@ -85,6 +109,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->tickets()->detach(); //desasocio la fk
+        $client->delete();
+        return redirect('admin/clients');
     }
 }
