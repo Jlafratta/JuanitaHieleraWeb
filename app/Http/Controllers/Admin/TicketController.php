@@ -28,12 +28,19 @@ class TicketController extends Controller
         $clientId = $request->get('clientId');
         $date = $request->get('dateFilter');
         
-        $clients = Client::getWithTickets();
-
-        $tickets = Ticket::orderBy('id', 'DESC')
+        if($clientId != null && $clientId == 0){
+            $tickets = Ticket::orderBy('id', 'DESC')
+            ->where('client_name', 'LIKE', '%CONTADO%')
+            ->date($date)
+            ->paginate(10);
+        }else{
+            $tickets = Ticket::orderBy('id', 'DESC')
             ->client($clientId)
             ->date($date)
             ->paginate(10);
+        }
+        
+        $clients = Client::getWithTickets();
 
         return view('dashboard.ticket.list')
         ->with(['title'=> TICKETS_TITLE,

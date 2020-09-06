@@ -41,6 +41,7 @@
                                     <div class="custom-control custom-control-inline mb-1">
                                         <select class="form-control" type="text" name="clientId" placeholder="Seleccionar cliente...">
                                             <option value="">Seleccionar cliente</option> 
+                                            <option value="0">CONTADO</option> 
                                             @foreach ($clients as $client)
                                             <option value="{{ $client->id }}">{{ $client->name }}</option>
                                             @endforeach
