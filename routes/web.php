@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return redirect('admin/tickets/create');
+        return redirect('/admin/tickets');
 });
 
 Auth::routes();
@@ -25,11 +25,11 @@ Route::get('/admin/create', 'Admin\TicketController@create')->name('home');
 Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
 
     Route::resource('/tickets', 'TicketController', ['except' => ['edit', 'update', 'show', 'destroy']]);
-        Route::get('/sales', 'TicketController@sales')->name('sales');
+        Route::get('/sales', 'TicketController@sales')->name('sales')->middleware('can:admin-gate');
     Route::resource('/clients', 'ClientController', ['except' => ['create']]);
     Route::resource('/products', 'ProductController', ['except' => ['create']]);
     Route::resource('/vehicles', 'VehicleController', ['except' => ['create']]);
-    Route::resource('/users', 'UserController', ['except' => ['create']]);
+    Route::resource('/users', 'UserController', ['except' => ['create']])->middleware('can:admin-gate');
 });
 
 // ruta para actualizar select

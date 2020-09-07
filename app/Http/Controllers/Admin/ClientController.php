@@ -20,10 +20,12 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
+        $clients = Client::orderBy('id', 'DESC')->where('debtor', 0)->get();
+        $debtors = Client::orderBy('id', 'DESC')->where('debtor', 1)->get();
         return view('dashboard.client.list')
         ->with(['title' => CLIENTS_TITLE, 
-                'clients' => $clients]);
+                'clients' => $clients,
+                'debtors' => $debtors]);
     }
 
     // /**
@@ -89,13 +91,14 @@ class ClientController extends Controller
         $request->validate([
             'name'=>'required',
             'phoneline'=> 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'debt' => 'required'
         ]);
 
         $client->name = $request->name;
         $client->phoneline = $request->phoneline;
         $client->address = $request->address;
-
+        $client->debtor = $request->debt;
         $client->update();
 
         return redirect('admin/clients');

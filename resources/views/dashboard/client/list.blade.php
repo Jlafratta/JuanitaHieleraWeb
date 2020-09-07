@@ -35,6 +35,11 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a role="tab" class="nav-link" id="tab-2" data-toggle="tab" href="#tab-content-2">
+                    <span>Deudores</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a role="tab" class="nav-link" id="tab-1" data-toggle="tab" href="#tab-content-1">
                     <span>Nuevo</span>
                 </a>
@@ -210,6 +215,68 @@
                     </div>
                     
 
+                </div>
+                
+            </div>
+
+            <div class="tab-pane tabs-animation fade" id="tab-content-2" role="tabpanel">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="main-card mb-3 card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        
+                                        <h5 class="card-title">Listado de deudores</h5>
+                                    </div>                            
+                                </div>
+                                
+                                <table id="tableSortable" class="mb-0 table-responsive-xl table  table-striped table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th class="cursor-pointer" onclick="sortTable(0)">#</th>
+                                        <th class="cursor-pointer" onclick="sortTable(1)">Nombre</th>
+                                        <th class="cursor-pointer" onclick="sortTable(2)">Domicilio</th>
+                                        <th class="cursor-pointer" onclick="sortTable(3)">Localidad</th>
+                                        <th class="cursor-pointer" onclick="sortTable(4)">Provincia</th>
+                                        <th>Telefono</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if ($debtors->isEmpty())
+                                        </tbody></table> 
+                                        <div class="text-center font-italic">No se encontraron deudores</div>
+                                        @endif
+                                    @foreach ($debtors as $debtor)
+                                        <tr>
+                                            <th scope="row">{{ $debtor->id }}</th>
+                                            <td>{{ $debtor->name }}</td>
+                                            <td>{{ $debtor->address }}</td>
+                                            <td> - </td>
+                                            <td> - </td>
+                                            <td>{{ $debtor->phoneline }}</td>
+                                            <td class="text-right">
+                                                <form action="{{ route('admin.clients.edit', $debtor) }}" method="GET">
+                                                    @csrf
+                                                    <button type="submit" data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
+                                                </form>
+                                            </td>
+                                            <td class="text-left">
+                                                <form action="{{ route('admin.clients.destroy', $debtor) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
             </div>

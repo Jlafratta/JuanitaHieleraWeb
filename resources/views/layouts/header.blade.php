@@ -80,7 +80,7 @@
                                 {{ Auth::user()->name }}
                             </div>
                             <div class="widget-subheading">
-                                Empleado {{-- CAMBIAR POR ROL --}}
+                                {{ Auth::user()->role->name }} 
                             </div>
                         </div>
                         <div class="widget-content-right">

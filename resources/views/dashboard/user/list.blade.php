@@ -71,13 +71,13 @@
                                         <tr>
                                             <td scope="row">{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ "Empleado" }}</td>
+                                            <td>{{ $user->role->name }}</td>
                                             <td class="text-right">
                                                 <a href="{{ route('admin.users.edit', $user->id) }}" data-toggle="tooltip" 
                                                 title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></a>
                                             </td>
                                             <td class="text-left">
-                                                @if ($user != Auth::user())
+                                                @if ($user->id != Auth::user()->id)
                                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
@@ -144,13 +144,12 @@
                                 <div class="row">
                                     <div class="col-md-6"><label for="description" class="mb-3">Cargo <span class="text-danger">*</span> <br></label>
                                         <div class="position-relative form-check d-flex justify-content-between mb-3">
-                                            <label for="emp" class="form-check-label cursor-pointer">
-                                                <input type="radio" name="rol" id="emp" class="form-check-control" checked="checked" required> Empleado
-                                            </label>
-                                            <label for="adm" class="form-check-label cursor-pointer">
-                                                <input type="radio" name="rol" id="adm" class="form-check-control"> Administrador
-                                                
-                                            </label>
+                                            @foreach ($roles as $role)
+                                                <label for="{{ $role->id }}" class="form-check-label cursor-pointer">
+                                                    <input type="radio" value="{{ $role->id }}" name="role" id="{{ $role->id }}" class="form-check-control" required> {{ $role->name }}
+                                                </label>
+                                            @endforeach
+                                            
                                         </div>
                                     </div>
                                     <div class="col-md-6">

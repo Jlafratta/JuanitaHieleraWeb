@@ -95,25 +95,30 @@
                         </div>
                         <div class="row">
 
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="position-relative form-group">
-                                    <label for="address" class="">Domicilio<span class="text-danger">*</span></label>
+                                    <label for="address" class="">Domicilio <span class="text-danger">*</span></label>
                                     <input value="{{ $client->address }}" type="text" name="address" id="address" class="form-control">
                                 </div>
                             </div>
                                 
-                            {{-- <div class="col-md-6">
-                                <div class="position-relative form-group">
-                                    <label for="locality" class="">Vehiculo</label>
-                                    <select type="select" id="locality" name="locality" class="custom-select">
-                                        @foreach ($client->vehicles() as $vehicle)
-                                        <option value="">Seleccionar</option>
-                                        @endforeach
+                            <div class="col-md-6">
+                                <label for="address" class="">Estado <span class="text-danger">*</span></label>
+                                <div class="position-relative form-check d-flex justify-content-between m-2">
+                                    <label for="active" class="form-check-label cursor-pointer">
                                         
+                                        <input type="radio" value="0" name="debt" id="active" class="form-check-control" required checked> Activo
                                         
-                                    </select>
+                                    </label>
+                                    <label for="debt" class="form-check-label cursor-pointer mr-3">
+                                        @if($client->debtor)
+                                            <input type="radio" value="1" name="debt" id="debt" class="form-check-control" required checked> Deudor
+                                        @else
+                                            <input type="radio" value="1" name="debt" id="debt" class="form-check-control" required > Deudor
+                                        @endif
+                                    </label>
                                 </div>
-                            </div> --}}
+                            </div>
                             
                         </div>
 
