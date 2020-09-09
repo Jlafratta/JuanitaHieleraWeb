@@ -6,6 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ticket extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'idCompound', 'date', 'bruto', 'tara', 'neto', 'total', 'prodPrice', 'client_name', 'patent', 'client_id'
+    ];
+
     protected $dates = ['date'];
 
     public function client(){
