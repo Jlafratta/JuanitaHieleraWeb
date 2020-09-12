@@ -14,8 +14,10 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'address', 'phoneline',
+        'name', 'address', 'phoneline', 'debtor',
     ];
+
+    public $timestamps = false;
 
     public function vehicles(){
         return $this->hasMany('App\Models\Vehicle');

@@ -15,6 +15,8 @@ class Ticket extends Model
         'idCompound', 'date', 'bruto', 'tara', 'neto', 'total', 'prodPrice', 'client_name', 'patent', 'client_id'
     ];
 
+    public $timestamps = false;
+
     protected $dates = ['date'];
 
     public function client(){

@@ -77,8 +77,8 @@
                             @else
                             @foreach ($products as $product)
                             <div class="position-relative form-check form-check-inline">
-                                <label class="form-check-label" for="prod">
-                                    <input id="prod" value="{{ $product->id }}" name="productId" type="radio" class="form-check-input" checked="checked"> {{ $product->name }}
+                                <label class="form-check-label" for="prod{{ $product->id }}">
+                                    <input id="prod{{ $product->id }}" value="{{ $product->id }}" name="productId" type="radio" class="form-check-input" checked="checked"> {{ $product->name }}
                                 </label>
                             </div>
                             @endforeach

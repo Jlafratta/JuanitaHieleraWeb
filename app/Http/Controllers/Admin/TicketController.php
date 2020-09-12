@@ -55,7 +55,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        $clients = Client::all();
+        $clients = Client::orderBy('name', 'ASC')->get();
         $vehicles = Vehicle::all();
         $products = Product::all();
         return view('dashboard.ticket.new')
