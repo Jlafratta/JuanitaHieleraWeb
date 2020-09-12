@@ -24,6 +24,7 @@ Route::namespace('API')->group(function(){
     Route::get('vehicles', 'VehicleRestController@index');
     Route::get('products', 'ProductRestController@index');
     Route::get('tickets', 'TicketRestController@index');
-    Route::post('tickets', 'TicketRestController@store');
+    Route::post('ticket', 'TicketRestController@store');
+    Route::post('tickets', 'TicketRestController@addAll');
 });
 

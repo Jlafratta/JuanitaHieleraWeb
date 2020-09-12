@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Desktop;
 use App\Models\Ticket;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,10 @@ class TicketRestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return Ticket::all();
-    }
+    // public function index()
+    // {
+    //     return Ticket::all();
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -34,33 +35,36 @@ class TicketRestController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    private function store($ticket)
     {
-        $ticket = Ticket::create($request->all());
+        $tic = new Ticket();
+        $tic->date = $ticket['date'];
+        $tic->bruto = $ticket['bruto'];
+        $tic->tara = $ticket['tara'];
+        $tic->neto = $ticket['neto'];
+        $tic->total = $ticket['total'];
+        $tic->prodPrice = $ticket['prodPrice'];
+        $tic->patent = $ticket['patent'];
+        $tic->client_name = $ticket['client_name'];
+        $tic->client_id = $ticket['client_id'];
+        $tic->save();
+        $tic->idCompound = 'E-'.$tic->id;
+        $tic->save();
+
         return response()->json($ticket, 201);
+    }
 
-        // if($request->clientId == 0){
-        //     $ticket->client_name = "CONTADO";
-        //     $ticket->client_id = 0;
-        // }else{
-        //     $ticket->client()->associate(Client::find($request->clientId));
-        //     $ticket->client_name = $ticket->client->name;
-        //     if($request->vehicleId){
-        //         $ticket->patent = Vehicle::find($request->vehicleId)->patent;
-        //     }
-        // }
-        
-        // $ticket->date = Carbon::now()->toDateTimeString();
-        // $ticket->bruto = $request->bruto;
-        // $ticket->tara = $request->tara;
-        // $ticket->neto = $ticket->bruto - $ticket->tara;
-        // $ticket->prodPrice = Product::find($request->productId)->price;
-        // $ticket->total = $ticket->prodPrice * $ticket->neto;
-        
-
-        // $ticket->save();
-        // $ticket->idCompound = "W-". $ticket->id;
-        // $ticket->save();
+    public function addAll(Request $request)
+    {
+        $dsktp = Desktop::find(1);
+        if($request->header('auth') == $dsktp->api_key){
+            $tickets = $request->all();
+            foreach($tickets as $ticket){
+                $this->store($ticket);
+            }
+            return response()->json($request, 201);
+        }
+        return response('', 401);
     }
 
     /**

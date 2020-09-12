@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Desktop;
 use Illuminate\Http\Request;
 
 class ProductRestController extends Controller
@@ -13,9 +14,14 @@ class ProductRestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Product::all();
+        $dsktp = Desktop::find(1);
+        if($request->header('auth') == $dsktp->api_key){
+            $products = Product::all();
+            return $products->isEmpty() ? response()->json($products, 204) : response()->json($products, 200);
+        }
+        return response('', 401);
     }
 
     /**

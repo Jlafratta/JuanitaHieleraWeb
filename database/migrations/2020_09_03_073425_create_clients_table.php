@@ -19,7 +19,6 @@ class CreateClientsTable extends Migration
             $table->string('address', 100);
             $table->bigInteger('phoneline');
             $table->integer('debtor')->default(0);
-            $table->timestamps();
 
             // $table->bigInteger('locality_id')->unsigned();
             // $table->foreign('client_id')->references('id')->on('locality');

@@ -52,7 +52,7 @@
                                 </div>
                                 
                                 
-                                <table id="tableSortable" class="mb-0 table-responsive-xl table  table-striped table-hover">
+                                <table id="tableSortable" class="mb-0 table-responsive-sm table  table-striped table-hover">
                                     <thead>
                                     <tr>
                                         <th >Nombre</th>

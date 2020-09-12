@@ -23,8 +23,6 @@ class CreateVehiclesTable extends Migration
             $table->bigInteger('client_id')->unsigned();
             $table->foreign('client_id')->references('id')->on('clients')->onDelete('cascade');
             // Al eliminarse el cliente, se eliminan sus vehiculos
-
-            $table->timestamps();
         });
     }
 
