@@ -4,15 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Role extends Model
+class Desktop extends Model
 {
     protected $fillable = [
-        'name',
+        'id', 'api_key',
     ];
-
+    
     public $timestamps = false;
-
-    public function users(){
-        return $this->belongsToMany('App\Models\User');
-    }
 }

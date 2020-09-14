@@ -20,8 +20,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::orderBy('id', 'DESC')->where('debtor', 0)->get();
-        $debtors = Client::orderBy('id', 'DESC')->where('debtor', 1)->get();
+        $clients = Client::orderBy('id', 'DESC')->where('debtor', 0)->paginate(10);
+        $debtors = Client::orderBy('id', 'DESC')->where('debtor', 1)->paginate(10);
         return view('dashboard.client.list')
         ->with(['title' => CLIENTS_TITLE, 
                 'clients' => $clients,

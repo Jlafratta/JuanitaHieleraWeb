@@ -14,8 +14,10 @@ class Vehicle extends Model
      * @var array
      */
     protected $fillable = [
-        'patent', 'tara', 'model', 'client_name',
+        'patent', 'tara', 'model', 'client_name', 'client_id'
     ];
+
+    public $timestamps = false;
 
     public function client(){
         return $this->belongsTo('App\Models\Client');

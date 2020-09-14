@@ -15,14 +15,13 @@ class CreateClientsTable extends Migration
     {
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 30);
+            $table->string('name', 50);
             $table->string('address', 100);
             $table->bigInteger('phoneline');
             $table->integer('debtor')->default(0);
-            $table->timestamps();
 
-            // $table->bigInteger('locality_id')->unsigned();
-            // $table->foreign('client_id')->references('id')->on('locality');
+            $table->bigInteger('locality_id')->unsigned()->nullable();
+            $table->foreign('locality_id')->references('id')->on('localities')->onDelete('cascade');
         });
     }
 

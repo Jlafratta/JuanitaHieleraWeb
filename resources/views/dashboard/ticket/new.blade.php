@@ -56,10 +56,10 @@
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
                                     <label for="exampleCustomSelect" class="">Vehiculo</label>
-                                    <select type="select" id="vehicles" name="vehicleId" class="custom-select">
+                                    <select type="select" id="veh" name="vehicleId" class="custom-select">
                                         <option value="">Seleccionar</option>
                                         @foreach ($vehicles as $vehicle)
-                                        <option value="{{ $vehicle->id }}">{{ $vehicle->patent }}</option>
+                                        <option  value="{{ $vehicle->id }}">{{ $vehicle->patent }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -77,8 +77,8 @@
                             @else
                             @foreach ($products as $product)
                             <div class="position-relative form-check form-check-inline">
-                                <label class="form-check-label" for="prod">
-                                    <input id="prod" value="{{ $product->id }}" name="productId" type="radio" class="form-check-input" checked="checked"> {{ $product->name }}
+                                <label class="form-check-label" for="prod{{ $product->id }}">
+                                    <input id="prod{{ $product->id }}" value="{{ $product->id }}" name="productId" type="radio" class="form-check-input" checked="checked"> {{ $product->name }}
                                 </label>
                             </div>
                             @endforeach
@@ -106,7 +106,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Tara&nbsp;&nbsp;</span>
                                 </div>
-                                <input value="0.0" name="tara" type="text" class="form-control form-control-lg">
+                                <input id="tara" value="0.0" name="tara" type="text" class="form-control form-control-lg">
                             </div>
                             <br>
                             <div class="input-group mb-2 form-control-lg">
@@ -128,5 +128,8 @@
 
     </div>
 </div>
+
+
+
 
 @endsection

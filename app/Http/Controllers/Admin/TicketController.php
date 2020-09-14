@@ -9,7 +9,7 @@ use App\Models\Ticket;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class TicketController extends Controller
 {
@@ -55,7 +55,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        $clients = Client::all();
+        $clients = Client::orderBy('name', 'ASC')->get();
         $vehicles = Vehicle::all();
         $products = Product::all();
         return view('dashboard.ticket.new')
@@ -73,10 +73,15 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        $request->validate([
+            'productId' => 'required',
+            'bruto' => 'required',
+            'tara' => 'required',
+            'neto' => 'required',
+        ]);
+
         $ticket = new Ticket();
 
-        //if
         if($request->clientId == 0){
             $ticket->client_name = "CONTADO";
             $ticket->client_id = 0;
@@ -102,6 +107,16 @@ class TicketController extends Controller
 
         
         return redirect('admin/tickets/create');       // AGREGAR IMPRESION ANTES
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'bruto' => ['required', 'integer'],
+            'tara' => ['required', 'integer'],
+            'neto' => ['required', 'integer'],
+            'productId' => ['required', 'integer'],
+        ]);
     }
 
     // /**
