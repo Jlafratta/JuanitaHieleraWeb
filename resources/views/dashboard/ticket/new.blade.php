@@ -56,10 +56,10 @@
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
                                     <label for="exampleCustomSelect" class="">Vehiculo</label>
-                                    <select type="select" id="vehicles" name="vehicleId" class="custom-select">
+                                    <select type="select" id="veh" name="vehicleId" class="custom-select">
                                         <option value="">Seleccionar</option>
                                         @foreach ($vehicles as $vehicle)
-                                        <option value="{{ $vehicle->id }}">{{ $vehicle->patent }}</option>
+                                        <option  value="{{ $vehicle->id }}">{{ $vehicle->patent }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -106,7 +106,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Tara&nbsp;&nbsp;</span>
                                 </div>
-                                <input value="0.0" name="tara" type="text" class="form-control form-control-lg">
+                                <input id="tara" value="0.0" name="tara" type="text" class="form-control form-control-lg">
                             </div>
                             <br>
                             <div class="input-group mb-2 form-control-lg">
@@ -128,5 +128,8 @@
 
     </div>
 </div>
+
+
+
 
 @endsection

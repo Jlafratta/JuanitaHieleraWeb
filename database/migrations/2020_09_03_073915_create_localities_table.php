@@ -16,6 +16,9 @@ class CreateLocalitiesTable extends Migration
         Schema::create('localities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+
+            $table->bigInteger('province_id')->unsigned();
+            $table->foreign('province_id')->references('id')->on('provinces')->onDelete('cascade');
         });
     }
 

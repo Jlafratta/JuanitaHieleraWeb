@@ -16,7 +16,7 @@ class TicketsTableSeeder extends Seeder
         
         $faker = \Faker\Factory::create('es_ES');
 
-        for ($i = 0; $i < 2000; $i++) {
+        for ($i = 0; $i < 200; $i++) {
             Ticket::create([
                 'idCompound' => 'W-'.($i+1),
                 'date' => $faker->dateTime,

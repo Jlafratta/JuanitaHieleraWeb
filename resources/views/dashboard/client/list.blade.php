@@ -83,8 +83,8 @@
                                             <th scope="row">{{ $client->id }}</th>
                                             <td>{{ $client->name }}</td>
                                             <td>{{ $client->address }}</td>
-                                            <td> - </td>
-                                            <td> - </td>
+                                            <td>@if(isset($client->locality)) {{ $client->locality->name }} @endif</td>
+                                            <td>@if(isset($client->locality->province)) {{ $client->locality->province->name }} @endif</td>
                                             <td>{{ $client->phoneline }}</td>
                                             <td class="text-right">
                                                 <form action="{{ route('admin.clients.edit', $client) }}" method="GET">
@@ -102,7 +102,8 @@
                                         </tr>
                                     @endforeach
                                     </tbody>
-                                </table>
+                                </table><br>
+                                <div class="d-flex justify-content-center pagination ">{{ $clients->render() }}</div>
                             </div>
                         </div>
                     </div>

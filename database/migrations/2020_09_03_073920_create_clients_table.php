@@ -20,8 +20,8 @@ class CreateClientsTable extends Migration
             $table->bigInteger('phoneline');
             $table->integer('debtor')->default(0);
 
-            // $table->bigInteger('locality_id')->unsigned();
-            // $table->foreign('client_id')->references('id')->on('locality');
+            $table->bigInteger('locality_id')->unsigned()->nullable();
+            $table->foreign('locality_id')->references('id')->on('localities')->onDelete('cascade');
         });
     }
 

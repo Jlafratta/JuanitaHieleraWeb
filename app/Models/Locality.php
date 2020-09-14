@@ -11,4 +11,8 @@ class Locality extends Model
     public function province(){
         return $this->belongsTo('App\Models\Province');
     }
+
+    public function clients(){
+        return $this->hasMany('App\Models\Client');
+    }
 }
