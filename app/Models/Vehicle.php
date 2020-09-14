@@ -34,4 +34,10 @@ class Vehicle extends Model
             return $query->where('patent', 'LIKE', "$patent%");
         }
     }
+  /*  public function clientIdVehicle($id)
+    {
+        return Vehicle::where('client_id','=',$id)->get();
+    }
+*/
+
 }

@@ -1,7 +1,7 @@
 @extends('layouts.dash')
 
 @section('title')
-    {{ __(CLIENTS_TITLE) }}    
+    {{ __(CLIENTS_TITLE) }}
 @endsection
 
 @section('css')
@@ -9,6 +9,7 @@
 @endsection
 
 @section('content')
+
 
 <div class="app-main__outer">
     <div class="app-main__inner">
@@ -25,8 +26,9 @@
                     <div class="h1">Clientes</div>
                 </div>
             </div>
-            
-        </div>  {{-- end title --}}   
+
+
+        </div>  {{-- end title --}}
 
         <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
             <li class="nav-item">
@@ -50,11 +52,11 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        
+
                                         <h5 class="card-title">Listado de clientes</h5>
-                                    </div>                            
+                                    </div>
                                 </div>
-                                
+
                                 <table id="tableSortable" class="mb-0 table-responsive-xl table  table-striped table-hover">
                                     <thead>
                                     <tr>
@@ -70,7 +72,7 @@
                                     </thead>
                                     <tbody>
                                         @if ($clients->isEmpty())
-                                        </tbody></table> 
+                                        </tbody></table>
                                         <div class="text-center font-italic">No se encontraron clientes</div>
                                         @endif
                                     @foreach ($clients as $client)
@@ -84,7 +86,7 @@
                                             <td class="text-right">
                                                 <form action="{{ route('admin.clients.edit', $client) }}" method="GET">
                                                     @csrf
-                                                    <button type="submit" data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
+                                                    <button type="submit" data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button>
                                                 </form>
                                             </td>
                                             <td class="text-left">
@@ -112,29 +114,29 @@
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
                                     <div>
-                                        
+
                                         <h5 class="card-title">Cliente</h5>
-                                        
-                                    </div> 
-                                                              
+
+                                    </div>
+
                                 </div>
                                 <br>
                                 <form action="{{ route('admin.clients.store') }}" method="POST">
                                     @csrf
                                 <div class="row">
-        
+
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="name" class="">Nombre <span class="text-danger">*</span></label>
                                             <input type="text" name="name" id="name" class="form-control">
                                         </div>
                                     </div>
-        
+
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="province" class="">Provincia <span class="text-danger">*</span></label>
                                             <select type="select" id="province" name="province" class="custom-select">
-                                                <option value="">Seleccionar</option>
+                                            <option value="">Seleccionar</option>
                                                 <option>Value 1</option>
                                                 <option>Value 2</option>
                                                 <option>Value 3</option>
@@ -143,7 +145,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -152,11 +154,12 @@
                                             <input type="number" name="phoneline" id="phoneline" class="form-control">
                                         </div>
                                     </div>
-                                    
-        
+
+
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="locality" class="">Localidad <span class="text-danger">*</span></label>
+
                                             <select type="select" id="locality" name="locality" class="custom-select">
                                                 <option value="">Seleccionar</option>
                                                 <option>Value 1</option>
@@ -167,17 +170,17 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                                 <div class="row">
-        
+
                                     <div class="col-md-12">
                                         <div class="position-relative form-group">
                                             <label for="address" class="">Domicilio<span class="text-danger">*</span></label>
                                             <input type="text" name="address" id="address" class="form-control">
                                         </div>
                                     </div>
-                                        
+
                                     {{-- <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="locality" class="">Vehiculo</label>
@@ -191,7 +194,7 @@
                                             </select>
                                         </div>
                                     </div> --}}
-                                    
+
                                 </div>
 
                                 <div class="row d-flex justify-content-center">
@@ -205,13 +208,13 @@
                                 </form>
 
                             </div>
-                            
+
                         </div>
                     </div>
-                    
+
 
                 </div>
-                
+
             </div>
 
         </div>
@@ -225,4 +228,5 @@
 
 @section('javascript')
     <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
+
 @endsection

@@ -21,9 +21,19 @@ class ClientController extends Controller
     public function index()
     {
         $clients = Client::all();
+        //$provinces= Province::all();
+
         return view('dashboard.client.list')
-        ->with(['title' => CLIENTS_TITLE, 
+        ->with(['title' => CLIENTS_TITLE,
                 'clients' => $clients]);
+                ///Agregar Pronvinces
+
+                //agregar en el blade de List que no me deja sin que rompa lo siguiente
+                /*
+                 <!-- @foreach ($provinces as $province)
+                                        <option value="{{ $province->id}}">{{ $province->name }}</option>
+                                     @endforeach -->
+                */
     }
 
     // /**
@@ -44,6 +54,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+
         Client::create([
             'name' => $request->name,
             'address' => $request->address,
