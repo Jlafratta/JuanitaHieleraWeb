@@ -59,7 +59,6 @@
                                     <select type="select" id="vehicles" name="vehicleId" class="custom-select">
                                         <option value="">Seleccionar</option>
                                     </select>
-                                    <input type="text">
                                 </div>
                                 {{ csrf_field() }}
                             </div>
