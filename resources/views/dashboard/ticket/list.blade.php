@@ -1,7 +1,7 @@
 @extends('layouts.dash')
 
 @section('title')
-    {{ __(TICKETS_TITLE) }}    
+    {{ __(TICKETS_TITLE) }}
 @endsection
 
 @section('css')
@@ -25,8 +25,8 @@
                     <div class="h1">Tickets</div>
                 </div>
             </div>
-            
-        </div>  {{-- end title --}}   
+
+        </div>  {{-- end title --}}
 
         <div class="row">
             <div class="col-lg-12">
@@ -40,8 +40,10 @@
                                 <form action="{{ route('admin.tickets.index') }}" method="GET">
                                     <div class="custom-control custom-control-inline mb-1">
                                         <select class="form-control" type="text" name="clientId" placeholder="Seleccionar cliente...">
+                                        
                                             <option value="">Seleccionar cliente</option> 
                                             <option value="0">CONTADO</option> 
+                                            
                                             @foreach ($clients as $client)
                                             <option value="{{ $client->id }}">{{ $client->name }}</option>
                                             @endforeach
@@ -55,12 +57,13 @@
                                         @endif
                                         <button class="btn btn-light btn-icon" type="submit"><i class="fa fa-lg fa-search"></i></button>
                                     </div>
-                                    
+
                                 </form>
                             </div>
-                            
+
+
                         </div>
-                        
+
                         <table id="tableSortable" class="mb-0 table-responsive-sm table  table-striped table-hover">
                             <thead>
                             <tr>
@@ -75,9 +78,9 @@
                             </thead>
                             <tbody>
                                 @if ($tickets->isEmpty())
-                                    </tbody></table> 
+                                    </tbody></table>
                                     <div class="text-center font-italic">No se encontraron tickets</div>
-                                @else   
+                                @else
                                 {{-- {{ $tickets }}    --}}
                                 @foreach ($tickets as $ticket)
                                 <tr>
@@ -88,7 +91,7 @@
                                     <td>{{ $ticket->client_name }}</td>
                                     <td>{{ $ticket->neto }}</td>
                                     <td class="text-center">
-                                        <button data-toggle="tooltip" title="Imprimir" data-placement="top" class="btn btn-primary  fa-lg"><i class=" pe-7s-print"></i></button> 
+                                        <button data-toggle="tooltip" title="Imprimir" data-placement="top" class="btn btn-primary  fa-lg"><i class=" pe-7s-print"></i></button>
                                         {{-- <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button> --}}
                                     </td>
                                 </tr>
@@ -97,12 +100,12 @@
                             </tbody>
                         </table><br>
                         <div class="d-flex justify-content-center pagination ">{{ $tickets->render() }}</div>
-                        
+
                     </div>
                 </div>
             </div>
         </div>
-        
+
 
     </div>
 </div>

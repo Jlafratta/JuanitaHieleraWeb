@@ -59,12 +59,12 @@ class VehicleController extends Controller
         $vehicle = new Vehicle();
 
         $vehicle->client()->associate(Client::find($request->clientId));
-        
+
         $vehicle->patent = $request->patent;
         $vehicle->tara = $request->tara;
         $vehicle->model = $request->model;
         $vehicle->client_name = $vehicle->client->name;
-        
+
         $vehicle->save();
 
         return redirect('admin/vehicles');
@@ -127,5 +127,29 @@ class VehicleController extends Controller
     {
         $vehicle->delete();
         return redirect('admin/vehicles');
+    }
+
+
+    public function byVehicleId(Request $request ,$id)
+    {
+
+        if($request->ajax()){
+
+           $vehicleId=Vehicle::where('id',$id)->get();
+           return response()->json($vehicleId);
+        }
+        return null  ;
+    }
+
+
+    public function byClientId(Request $request ,$id)
+    {
+
+        if($request->ajax()){
+
+           $vehiclesClientId=Vehicle::where('client_id',$id)->get();
+           return response()->json($vehiclesClientId);
+        }
+        return null  ;
     }
 }

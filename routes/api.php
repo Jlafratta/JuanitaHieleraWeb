@@ -14,10 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
 Route::namespace('API')->group(function(){
 
     Route::get('clients', 'ClientRestController@index');
@@ -26,5 +22,6 @@ Route::namespace('API')->group(function(){
     Route::get('tickets', 'TicketRestController@index');
     Route::post('ticket', 'TicketRestController@store');
     Route::post('tickets', 'TicketRestController@addAll');
+
 });
 

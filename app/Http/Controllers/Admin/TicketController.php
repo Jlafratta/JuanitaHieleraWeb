@@ -9,7 +9,10 @@ use App\Models\Ticket;
 use App\Models\Vehicle;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Validator;
+
 
 class TicketController extends Controller
 {
@@ -27,7 +30,7 @@ class TicketController extends Controller
     {
         $clientId = $request->get('clientId');
         $date = $request->get('dateFilter');
-        
+
         if($clientId != null && $clientId == 0){
             $tickets = Ticket::orderBy('id', 'DESC')
             ->where('client_name', 'LIKE', '%CONTADO%')
@@ -41,6 +44,8 @@ class TicketController extends Controller
         }
         
         $clients = Client::getWithTickets();
+
+
 
         return view('dashboard.ticket.list')
         ->with(['title'=> TICKETS_TITLE,
@@ -64,6 +69,7 @@ class TicketController extends Controller
                 'vehicles' => $vehicles,
                 'products' => $products]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -92,20 +98,20 @@ class TicketController extends Controller
                 $ticket->patent = Vehicle::find($request->vehicleId)->patent;
             }
         }
-        
+
         $ticket->date = Carbon::now()->toDateTimeString();
         $ticket->bruto = $request->bruto;
         $ticket->tara = $request->tara;
         $ticket->neto = $ticket->bruto - $ticket->tara;
         $ticket->prodPrice = Product::find($request->productId)->price;
         $ticket->total = $ticket->prodPrice * $ticket->neto;
-        
+
 
         $ticket->save();
         $ticket->idCompound = "W-". $ticket->id;
         $ticket->save();
 
-        
+
         return redirect('admin/tickets/create');       // AGREGAR IMPRESION ANTES
     }
 
@@ -167,5 +173,38 @@ class TicketController extends Controller
     public function sales()
     {
         return view('dashboard.sales.daily')->with(['title'=> DAILY_SALES_TITLE]);
+    }
+
+    public function clientIdVehicle($id)
+    {
+        if($request->ajax())
+        {
+
+            $vehiclesClientId=Vehicle::where('client_id','=',$id)->get();
+            return response()->json($vehiclesClientId);
+     }
+    }
+
+    public function exportPdf()
+    {
+
+
+
+        $clientId = $request->get('clientId');
+        $date = $request->get('dateFilter');
+
+        $clients = Client::getWithTickets();
+
+        $tickets = Ticket::orderBy('id', 'DESC')
+            ->client($clientId)
+            ->date($date)
+            ->paginate(10);
+
+
+        $pdf= PDF::loadView('dashboard.ticket.list',compact('tickets'));
+
+
+
+        return $pdf->download('ticketList.pdf');
     }
 }

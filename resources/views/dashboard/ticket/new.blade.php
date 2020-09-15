@@ -1,7 +1,7 @@
 @extends('layouts.dash')
 
 @section('title')
-    {{ __(NEW_TICKET_TITLE) }}    
+    {{ __(NEW_TICKET_TITLE) }}
 @endsection
 
 @section('css')
@@ -31,9 +31,9 @@
             </div>
         </div>  {{-- end title --}}
         {{-- CONTENT --}}
-        
+
         <div class="row">
-            
+
             <div class="col-md-6">
                 <form action="{{ route('admin.tickets.store') }}" method="POST">
                     @csrf
@@ -45,34 +45,33 @@
                                 <div class="position-relative form-group">
                                     <label for="exampleCustomSelect" class="">Nombre</label>
                                     <select type="select" id="clients" name="clientId" class="custom-select">
-                                        <option value="">CONTADO</option>
-                                        @foreach ($clients as $client)
+                                    <option value="Contado">Contado</option>
+                                    @foreach ($clients as $client)
                                         <option value="{{ $client->id}}">{{ $client->name }}</option>
-                                        @endforeach
+                                     @endforeach
                                     </select>
                                 </div>
                             </div>
 
                             <div class="col-md-6">
                                 <div class="position-relative form-group">
-                                    <label for="exampleCustomSelect" class="">Vehiculo</label>
-                                    <select type="select" id="veh" name="vehicleId" class="custom-select">
+                                   <label for="exampleCustomSelect" class="">Vehiculo</label>
+                                    <select type="select" id="vehicles" name="vehicleId" class="custom-select">
                                         <option value="">Seleccionar</option>
-                                        @foreach ($vehicles as $vehicle)
-                                        <option  value="{{ $vehicle->id }}">{{ $vehicle->patent }}</option>
-                                        @endforeach
                                     </select>
+                                    <input type="text">
                                 </div>
+                                {{ csrf_field() }}
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
                 <div class="main-card mb-3 card">
                     <div class="card-body"><h5 class="card-title">Producto</h5><br>
-                        
+
                         <fieldset class="position-relative form-group">
-                            @if ($products->isEmpty()) 
+                            @if ($products->isEmpty())
                                 <div class="text-center font-italic">No se encontraron productos</div>
                             @else
                             @foreach ($products as $product)
@@ -87,7 +86,7 @@
                         <div class="text-right">
                             <button type="submit" class="mt-2 btn btn-primary btn-lg">Confirmar</button>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -106,7 +105,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Tara&nbsp;&nbsp;</span>
                                 </div>
-                                <input id="tara" value="0.0" name="tara" type="text" class="form-control form-control-lg">
+                                <input value="0.0" name="tara" id="tara" type="text" class="form-control form-control-lg">
                             </div>
                             <br>
                             <div class="input-group mb-2 form-control-lg">
@@ -115,11 +114,11 @@
                                 </div>
                                 <input value="0.0" name="neto" type="text" class="form-control form-control-lg">
                             </div>
-                            
+
                             <div class="mt-4 divider"></div>
                             <div class="mt-4 pr-4 text-right"><h5>$ 0.0</h6></div>
-                            
-                        
+
+
                     </div>
                 </div>
             </form>
@@ -129,7 +128,12 @@
     </div>
 </div>
 
+@endsection
 
 
+@section('javascript')
+  <script  src="{{ asset('js/dropdownNewTicket.js') }}">
+
+  </script>
 
 @endsection
