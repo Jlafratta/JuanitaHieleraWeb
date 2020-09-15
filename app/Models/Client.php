@@ -14,8 +14,14 @@ class Client extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'address', 'phoneline',
+        'name', 'address', 'phoneline', 'debtor', 'locality_id',
     ];
+
+    public $timestamps = false;
+
+    public function locality(){
+        return $this->belongsTo('App\Models\Locality');
+    }
 
     public function vehicles(){
         return $this->hasMany('App\Models\Vehicle');

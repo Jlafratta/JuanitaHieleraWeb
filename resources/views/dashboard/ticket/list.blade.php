@@ -40,7 +40,10 @@
                                 <form action="{{ route('admin.tickets.index') }}" method="GET">
                                     <div class="custom-control custom-control-inline mb-1">
                                         <select class="form-control" type="text" name="clientId" placeholder="Seleccionar cliente...">
-                                            <option value="">Seleccionar cliente</option>
+                                        
+                                            <option value="">Seleccionar cliente</option> 
+                                            <option value="0">CONTADO</option> 
+                                            
                                             @foreach ($clients as $client)
                                             <option value="{{ $client->id }}">{{ $client->name }}</option>
                                             @endforeach
@@ -61,7 +64,7 @@
 
                         </div>
 
-                        <table id="tableSortable" class="mb-0 table-responsive-xl table  table-striped table-hover">
+                        <table id="tableSortable" class="mb-0 table-responsive-sm table  table-striped table-hover">
                             <thead>
                             <tr>
                                 <th class="cursor-pointer" onclick="sortTable(0)">Ticket</th>

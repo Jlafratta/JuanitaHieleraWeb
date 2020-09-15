@@ -28,8 +28,6 @@ class CreateTicketsTable extends Migration
             $table->string('patent')->nullable();
 
             $table->bigInteger('client_id')->unsigned();
-
-            $table->timestamps();
         });
     }
 

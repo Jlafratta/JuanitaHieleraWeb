@@ -20,12 +20,14 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients = Client::all();
+        $clients = Client::orderBy('id', 'DESC')->where('debtor', 0)->paginate(10);
+        $debtors = Client::orderBy('id', 'DESC')->where('debtor', 1)->paginate(10);
         //$provinces= Province::all();
 
         return view('dashboard.client.list')
-        ->with(['title' => CLIENTS_TITLE,
-                'clients' => $clients]);
+        ->with(['title' => CLIENTS_TITLE, 
+                'clients' => $clients,
+                'debtors' => $debtors]);
                 ///Agregar Pronvinces
 
                 //agregar en el blade de List que no me deja sin que rompa lo siguiente
@@ -34,6 +36,7 @@ class ClientController extends Controller
                                         <option value="{{ $province->id}}">{{ $province->name }}</option>
                                      @endforeach -->
                 */
+
     }
 
     // /**
@@ -100,13 +103,14 @@ class ClientController extends Controller
         $request->validate([
             'name'=>'required',
             'phoneline'=> 'required',
-            'address' => 'required'
+            'address' => 'required',
+            'debt' => 'required'
         ]);
 
         $client->name = $request->name;
         $client->phoneline = $request->phoneline;
         $client->address = $request->address;
-
+        $client->debtor = $request->debt;
         $client->update();
 
         return redirect('admin/clients');

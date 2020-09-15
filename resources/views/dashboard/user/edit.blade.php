@@ -133,13 +133,15 @@
                         <div class="row">
                             <div class="col-md-6"><label for="description" class="mb-3">Cargo <span class="text-danger">*</span> <br></label>
                                 <div class="position-relative form-check d-flex justify-content-between mb-3">
-                                    <label for="emp" class="form-check-label cursor-pointer">
-                                        <input type="radio" name="rol" id="emp" class="form-check-control" checked="checked" required> Empleado
-                                    </label>
-                                    <label for="adm" class="form-check-label cursor-pointer">
-                                        <input type="radio" name="rol" id="adm" class="form-check-control"> Administrador
-                                        
-                                    </label>
+                                    @foreach ($roles as $role)
+                                        <label for="{{ $role->id }}" class="form-check-label cursor-pointer">
+                                            @if($user->role_id == $role->id)
+                                                <input type="radio" value="{{ $role->id }}" name="role" id="{{ $role->id }}" class="form-check-control" required checked> {{ $role->name }}
+                                            @else
+                                                <input type="radio" value="{{ $role->id }}" name="role" id="{{ $role->id }}" class="form-check-control" required> {{ $role->name }}
+                                            @endif
+                                        </label>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="col-md-6">

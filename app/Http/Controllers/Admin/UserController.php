@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -22,10 +23,12 @@ class UserController extends Controller
      */
     public function index()
     {
+        $roles = Role::all();
         $users = User::all();
         return view('dashboard.user.list')
             ->with(['title'=> USERS_TITLE,
-                    'users' => $users]);
+                    'users' => $users,
+                    'roles' => $roles]);
     }
 
     /**
@@ -62,12 +65,14 @@ class UserController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        event(new Registered(User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password),])
-            )
+            'password' => Hash::make($request->password)]
         );
+        $user->role()->associate(Role::find($request->role));
+        $user->save();
+        event(new Registered($user));
 
         return redirect('admin/users');
     }
@@ -91,9 +96,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $roles = Role::all();
         return view('dashboard.user.edit')
         ->with(['title'=> USERS_TITLE,
-                'user' => $user]);
+                'user' => $user,
+                'roles' => $roles]);
     }
 
     /**
@@ -105,7 +112,14 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        $user->role()->associate(Role::find($request->role));
+
+        $user->save();
+
+        return redirect('admin/users');
     }
 
     /**

@@ -33,6 +33,8 @@
     <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
             <ul class="vertical-nav-menu">
+
+                @can('admin-gate')
                 <li class="app-sidebar__heading">Contable</li>
                 <li>
                     <a href="{{ route('admin.sales') }}" class="mm<?php if($title == DAILY_SALES_TITLE){echo '-active';} ?>">
@@ -40,6 +42,8 @@
                         Ventas
                     </a>
                 </li>
+                @endcan
+
                 <li class="app-sidebar__heading">Pesadas</li>
                 <li>
                     <a href="{{ route('admin.tickets.create') }}" class="mm<?php if($title == NEW_TICKET_TITLE){echo '-active';} ?>">
@@ -72,6 +76,8 @@
                         Productos
                     </a>
                 </li>
+
+                @can('admin-gate')
                 <li class="app-sidebar__heading">Usuarios</li>
                 <li>
                     <a href="{{ route('admin.users.index') }}" class="mm<?php if($title == USERS_TITLE){echo '-active';} ?>">
@@ -79,6 +85,8 @@
                         Empleados
                     </a>
                 </li>
+                @endcan
+                
             </ul> 
         </div>
     </div>

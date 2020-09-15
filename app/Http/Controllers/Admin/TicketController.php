@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Validator;
 
 
 class TicketController extends Controller
@@ -30,12 +31,19 @@ class TicketController extends Controller
         $clientId = $request->get('clientId');
         $date = $request->get('dateFilter');
 
-        $clients = Client::getWithTickets();
-
-        $tickets = Ticket::orderBy('id', 'DESC')
+        if($clientId != null && $clientId == 0){
+            $tickets = Ticket::orderBy('id', 'DESC')
+            ->where('client_name', 'LIKE', '%CONTADO%')
+            ->date($date)
+            ->paginate(10);
+        }else{
+            $tickets = Ticket::orderBy('id', 'DESC')
             ->client($clientId)
             ->date($date)
             ->paginate(10);
+        }
+        
+        $clients = Client::getWithTickets();
 
 
 
@@ -52,7 +60,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        $clients = Client::all();
+        $clients = Client::orderBy('name', 'ASC')->get();
         $vehicles = Vehicle::all();
         $products = Product::all();
         return view('dashboard.ticket.new')
@@ -71,10 +79,15 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
+        $request->validate([
+            'productId' => 'required',
+            'bruto' => 'required',
+            'tara' => 'required',
+            'neto' => 'required',
+        ]);
+
         $ticket = new Ticket();
 
-        //if
         if($request->clientId == 0){
             $ticket->client_name = "CONTADO";
             $ticket->client_id = 0;
@@ -100,6 +113,16 @@ class TicketController extends Controller
 
 
         return redirect('admin/tickets/create');       // AGREGAR IMPRESION ANTES
+    }
+
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'bruto' => ['required', 'integer'],
+            'tara' => ['required', 'integer'],
+            'neto' => ['required', 'integer'],
+            'productId' => ['required', 'integer'],
+        ]);
     }
 
     // /**
