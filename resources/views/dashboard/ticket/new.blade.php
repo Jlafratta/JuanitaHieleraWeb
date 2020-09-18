@@ -82,8 +82,8 @@
                             @endforeach
                             @endif
                         </fieldset>
-                        <div class="text-right">
-                            <button type="submit" class="mt-2 btn btn-primary btn-lg">Confirmar</button>
+                        <div class="d-none d-md-block text-right ">
+                            <button type="submit" class="mt-2 btn btn-primary btn-lg fa-lg">Continuar <i class="fa fa-angle-double-right"></i></button>
                         </div>
 
                     </div>
@@ -97,28 +97,31 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text ">Bruto</span>
                                 </div>
-                                <input value="0.0" name="bruto" type="text" class="form-control form-control-lg">
+                                <input value="0.0" name="bruto" type="text" class="form-control form-control-lg" required>
                             </div>
                             <br>
                             <div class="input-group mb-2 form-control-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Tara&nbsp;&nbsp;</span>
                                 </div>
-                                <input value="0.0" name="tara" id="tara" type="text" class="form-control form-control-lg">
+                                <input value="0.0" name="tara" id="tara" type="text" class="form-control form-control-lg" required>
                             </div>
                             <br>
                             <div class="input-group mb-2 form-control-lg">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Neto</span>
                                 </div>
-                                <input value="0.0" name="neto" type="text" class="form-control form-control-lg">
+                                <input value="0.0" name="neto" type="text" class="form-control form-control-lg" required>
                             </div>
 
                             <div class="mt-4 divider"></div>
                             <div class="mt-4 pr-4 text-right"><h5>$ 0.0</h6></div>
 
-
+                            <div class="d-md-none text-right ">
+                                <button type="submit" class="mt-2 btn btn-primary btn-lg fa-lg">Continuar <i class="fa fa-angle-double-right"></i></button>
+                            </div>
                     </div>
+                    
                 </div>
             </form>
             </div>

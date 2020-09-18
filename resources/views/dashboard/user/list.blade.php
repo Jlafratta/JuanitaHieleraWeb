@@ -46,7 +46,7 @@
                         <div class="main-card mb-3 card">
                             <div class="card-body">
                                 <div class="d-flex justify-content-between">
-                                    <div>
+                                    <div class="d-none d-lg-block">
                                         <h5 class="card-title">Listado de empleados</h5>
                                     </div>              
                                 </div>
@@ -58,7 +58,7 @@
                                         <th >Nombre</th>
                                         <th >Correo</th>
                                         <th >Cargo</th>
-                                        <th></th><th></th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -76,7 +76,7 @@
                                                 <a href="{{ route('admin.users.edit', $user->id) }}" data-toggle="tooltip" 
                                                 title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></a>
                                             </td>
-                                            <td class="text-left">
+                                            {{-- <td class="text-left">
                                                 @if ($user->id != Auth::user()->id)
                                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
                                                     @csrf
@@ -84,7 +84,7 @@
                                                     <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
                                                 </form>
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                         </tr>
 
                                         @endforeach
@@ -166,7 +166,13 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-6"></div>
+                                    <div class="col-md-6 d-none d-md-block">
+                                        <div class="position-relative form-group">
+                                            <label for="" style="color: white">-</label>
+                                            <button class="btn btn-success btn-lg btn-block fa-lg" type="submit">Guardar <i class="fa fa-check"></i></button>
+                                        </div>
+                                        
+                                    </div>
                                     <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="description" class="">Confirmar contraseña <span class="text-danger">*</span> </label>
@@ -175,15 +181,18 @@
                                     </div>
                                 </div>
 
-                                <div class="row d-flex justify-content-center">
+                                {{-- <div class="row d-flex justify-content-center">
                                     <div class="col-md-6 p-">
                                         <button class="btn btn-danger btn-lg btn-block mt-1" type="reset">Reiniciar</button>
                                     </div>
                                     <div class="col-md-6">
                                         <button class="btn btn-success btn-lg btn-block mt-1" type="submit">Siguiente</button>
                                     </div>
+                                </div> --}}
+                                <div class="d-md-none mt-1">
+                                    <button class="btn btn-success btn-lg btn-block fa-lg" type="submit">Guardar <i class="fa fa-check"></i></button>
                                 </div>
-
+                                
                                 </form>
                             </div>
                             

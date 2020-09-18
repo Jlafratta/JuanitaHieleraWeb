@@ -31,6 +31,16 @@ class Client extends Model
         return $this->hasMany('App\Models\Ticket');
     }
 
+    // Scope
+
+    public function scopeWithTickets($query){
+        
+        return $query->join('tickets', 'clients.id', '=', 'tickets.client_id')
+                     ->select('clients.id', 'clients.name')
+                     ->groupBy('clients.id', 'clients.name');
+        
+    }
+
     public static function getWithTickets (){
         return DB::table('clients')
             ->join('tickets', 'clients.id', '=', 'tickets.client_id')

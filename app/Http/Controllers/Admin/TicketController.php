@@ -35,15 +35,15 @@ class TicketController extends Controller
             $tickets = Ticket::orderBy('id', 'DESC')
             ->where('client_name', 'LIKE', '%CONTADO%')
             ->date($date)
-            ->paginate(10);
+            ->paginate(15);
         }else{
             $tickets = Ticket::orderBy('id', 'DESC')
             ->client($clientId)
             ->date($date)
-            ->paginate(10);
+            ->paginate(15);
         }
         
-        $clients = Client::getWithTickets();
+        $clients = Client::orderBy('name', 'ASC')->withTickets()->get();
 
 
 
@@ -170,9 +170,30 @@ class TicketController extends Controller
     //     //
     // }
 
-    public function sales()
+    public function sales(Request $request)
     {
-        return view('dashboard.sales.daily')->with(['title'=> DAILY_SALES_TITLE]);
+
+        $clientId = $request->get('clientId');
+        $date = $request->get('dateFilter');
+
+        if($clientId != null && $clientId == 0){
+            $tickets = Ticket::orderBy('id', 'DESC')
+            ->where('client_name', 'LIKE', '%CONTADO%')
+            ->date($date)
+            ->paginate(15);
+        }else{
+            $tickets = Ticket::orderBy('id', 'DESC')
+            ->client($clientId)
+            ->date($date)
+            ->paginate(15);
+        }
+        
+        $clients = Client::getWithTickets();
+
+        return view('dashboard.sales.daily')
+            ->with(['title'=> DAILY_SALES_TITLE,
+                    'tickets' => $tickets,
+                    'clients' => $clients]);
     }
 
     public function clientIdVehicle($id)
