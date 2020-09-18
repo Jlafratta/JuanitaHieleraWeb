@@ -48,10 +48,10 @@
                     <div class="col-lg-12">
                         <div class="main-card mb-3 card">
                             <div class="card-body">
-                                <div class="d-flex justify-content-between">
-                                    <div>
+                                <div class="d-flex justify-content-around">
+                                    <div class="d-none d-lg-block">
                                         <h5 class="card-title mt-2">Listado de vehiculos</h5>
-                                    </div>  
+                                    </div><hr>
                                     <div class="position-relative form-group">
                                         <form action="{{ route('admin.vehicles.index') }}" method="GET">
                                             <div class="custom-checkbox custom-control custom-control-inline mb-1">
@@ -100,13 +100,13 @@
                                             <td class="text-right">
                                                 <a href="{{ route('admin.vehicles.edit', $vehicle->id) }}" data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></a> 
                                             </td>
-                                            <td class="text-left">
+                                            {{-- <td class="text-left">
                                                 <form action="{{ route('admin.vehicles.destroy', $vehicle->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
                                                 </form>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                         @endforeach
                                     
@@ -176,12 +176,10 @@
                                 </div>
                                 
 
-                                <div class="row d-flex justify-content-center">
-                                    <div class="col-md-6 p-">
-                                        <button class="btn btn-danger btn-lg btn-block mt-1" type="reset">Reiniciar</button>
-                                    </div>
+                                <div class="row d-flex justify-content-end">
+                                    
                                     <div class="col-md-6">
-                                        <button class="btn btn-success btn-lg btn-block mt-1" type="submit">Siguiente</button>
+                                        <button class="btn btn-success btn-lg btn-block mt-1 fa-lg" type="submit">Guardar <i class="fa fa-check"></i></button>
                                     </div>
                                 </div>
 

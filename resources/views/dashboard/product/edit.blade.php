@@ -39,7 +39,11 @@
                                 
                                 <h5 class="card-title">Producto</h5>
                                 
-                            </div>             
+                            </div>     
+                            <div class="text-left">
+                                
+                                
+                            </div>        
                         </div>
                         <br>
                         <form action="{{ route('admin.products.update', $product) }}" method="POST">
@@ -70,16 +74,19 @@
                         </div>
                         
 
-                        <div class="row d-flex justify-content-center">
-                            <div class="col-md-6 p-">
-                                <button class="btn btn-danger btn-lg btn-block mt-1" type="reset">Reiniciar</button>
-                            </div>
-                            <div class="col-md-6">
-                                <button class="btn btn-success btn-lg btn-block mt-1" type="submit">Siguiente</button>
-                            </div>
+                        <div >
+                            
+                                <button class="float-right btn btn-success btn-lg mt-1 fa-lg" style="width: 47%" type="submit"> Guardar  <i class="fa fa-check"></i></button>
+                     
+                            </form>
+                                <form action="{{ route('admin.products.destroy', $product) }}" method="POST" class="float-left" style="width: 47%">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger btn-lg btn-block mt-1 fa-lg"> Eliminar <i class="fa fa-trash"></i></button>
+                                </form>
                         </div>
 
-                        </form>
+                        
                     </div>
                     
                 </div>

@@ -72,7 +72,6 @@
                                         <th class="cursor-pointer" onclick="sortTable(4)">Provincia</th>
                                         <th>Telefono</th>
                                         <th></th>
-                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -94,13 +93,13 @@
                                                     <button type="submit" data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button>
                                                 </form>
                                             </td>
-                                            <td class="text-left">
+                                            {{-- <td class="text-left">
                                                 <form action="{{ route('admin.clients.destroy', $client) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
                                                 </form>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -124,7 +123,7 @@
                                         <h5 class="card-title">Cliente</h5>
 
                                     </div>
-
+                                    
                                 </div>
                                 <br>
                                 <form action="{{ route('admin.clients.store') }}" method="POST">
@@ -178,15 +177,21 @@
                                     </div>
 
                                 </div>
-                                <div class="row">
+                                <div class="row d-flex justify-content-center">
 
-                                    <div class="col-md-12">
+                                    <div class="col-md-8">
                                         <div class="position-relative form-group">
                                             <label for="address" class="">Domicilio<span class="text-danger">*</span></label>
                                             <input type="text" name="address" id="address" class="form-control">
                                         </div>
                                     </div>
-
+                                    <div class="col-md-4">
+                                        <div class="position-relative form-group">
+                                            <label for="" style="color: white">-</label>
+                                            <button class="btn btn-success btn-lg btn-block fa-lg" type="submit">Guardar <i class="fa fa-check"></i></button>
+                                        </div>
+                                        
+                                    </div>
                                     {{-- <div class="col-md-6">
                                         <div class="position-relative form-group">
                                             <label for="locality" class="">Vehiculo</label>
@@ -203,14 +208,6 @@
 
                                 </div>
 
-                                <div class="row d-flex justify-content-center">
-                                    <div class="col-md-6 p-">
-                                        <button class="btn btn-danger btn-lg btn-block mt-1" type="reset">Reiniciar</button>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button class="btn btn-success btn-lg btn-block mt-1" type="submit">Siguiente</button>
-                                    </div>
-                                </div>
                                 </form>
 
                             </div>
@@ -245,7 +242,6 @@
                                         <th class="cursor-pointer" onclick="sortTable(4)">Provincia</th>
                                         <th>Telefono</th>
                                         <th></th>
-                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -267,13 +263,13 @@
                                                     <button type="submit" data-toggle="tooltip" title="Editar" data-placement="top" class="btn btn-primary fa-lg"><i class="pe-7s-config"></i></button> 
                                                 </form>
                                             </td>
-                                            <td class="text-left">
+                                            {{-- <td class="text-left">
                                                 <form action="{{ route('admin.clients.destroy', $debtor) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button>
                                                 </form>
-                                            </td>
+                                            </td> --}}
                                         </tr>
                                     @endforeach
                                     </tbody>

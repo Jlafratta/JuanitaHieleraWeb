@@ -32,10 +32,10 @@
             <div class="col-lg-12">
                 <div class="main-card mb-3 card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-between">
-                            <div>
+                        <div class="d-flex justify-content-around">
+                            <div class="d-none d-lg-block">
                                 <h5 class="card-title mt-2">Listado de tickets</h5>
-                            </div>
+                            </div><hr>
                             <div class="position-relative form-group">
                                 <form action="{{ route('admin.tickets.index') }}" method="GET">
                                     <div class="custom-control custom-control-inline mb-1">
