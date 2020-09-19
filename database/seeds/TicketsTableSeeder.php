@@ -19,7 +19,7 @@ class TicketsTableSeeder extends Seeder
         for ($i = 0; $i < 200; $i++) {
             Ticket::create([
                 'idCompound' => 'W-'.($i+1),
-                'date' => $faker->dateTime,
+                'date' => $faker->dateTimeBetween('2020-08-00'),
                 'bruto' => $faker->numberBetween(500, 2500),
                 'tara' => $faker->numberBetween(500, 2500),
                 'neto' => $faker->numberBetween(1, 50),

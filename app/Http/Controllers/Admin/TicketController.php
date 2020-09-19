@@ -12,7 +12,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Validator;
-
+use TicketsTableSeeder;
 
 class TicketController extends Controller
 {

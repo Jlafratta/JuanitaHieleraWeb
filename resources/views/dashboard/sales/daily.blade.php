@@ -14,8 +14,8 @@
             <div class="page-title-wrapper">
                 <div class="page-title-heading">
                     <div class="page-title-icon">
-                        <div class="font-icon">
-                            <i class="fa fa-balance-scale" aria-hidden="true"></i>
+                        <div class="font-icon" style="font-size: 1.7rem;">
+                            <i class="fa fa-balance-scale icon-users" aria-hidden="true"></i>
                         </div>
                     </div>
                     <div class="h1">Ventas</div>
@@ -31,16 +31,24 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="main-card mb-3 card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h5 class="card-title">Ventas del mes</h5>
+                        </div>              
+                    </div>
+                    <!-- Chart's container -->
+                    <div id="chart" style="height: 300px;"></div>
+                    <!-- Your application script -->
+                    <script>                
+                        const chart = new Chartisan({
+                        el: '#chart',
+                        url: "@chart('daily_sales')",
+                        });
+                    </script>
+                </div>
 
-            <!-- Chart's container -->
-            <div id="chart" style="height: 300px;"></div>
-            <!-- Your application script -->
-            <script>
-                const chart = new Chartisan({
-                el: '#chart',
-                url: "@chart('daily_sales')",
-                });
-            </script>
+            
 
             </div>
         </div>
@@ -55,7 +63,7 @@
                                 <h5 class="card-title mt-2">Listado de tickets</h5>
                             </div><hr>
                             <div class="position-relative form-group">
-                                <form action="{{ route('admin.tickets.index') }}" method="GET">
+                                <form action="{{ route('admin.sales') }}" method="GET">
                                     <div class="custom-control custom-control-inline mb-1">
                                         <select class="form-control" type="text" name="clientId" placeholder="Seleccionar cliente...">
                                         
@@ -109,7 +117,7 @@
                                     <td>{{ $ticket->patent }}</td>
                                     <td>{{ $ticket->client_name }}</td>
                                     <td>{{ $ticket->neto }}</td>
-                                    <td>{{ $ticket->total }}</td>
+                                    <td>{{ '$ ' . $ticket->total }}</td>
                                     <td class="text-center">
                                         <button data-toggle="tooltip" title="Imprimir" data-placement="top" class="btn btn-primary  fa-lg"><i class=" pe-7s-print"></i></button>
                                         {{-- <button data-toggle="tooltip" title="Eliminar" data-placement="top" class="btn btn-danger fa-lg"><i class="pe-7s-trash"></i></button> --}}

@@ -130,11 +130,10 @@
                         <div class="mt-1">
                             <button class="float-right btn btn-success btn-lg mt-1 fa-lg" style="width: 47%" type="submit"> Guardar  <i class="fa fa-check"></i></button>
                         </form>
-                            <form action="{{ route('admin.products.destroy', $client) }}" method="POST" class="float-left" style="width: 47%">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger btn-lg btn-block mt-1 fa-lg"> Eliminar <i class="fa fa-trash"></i></button>
-                            </form>
+
+                           <div class="float-left" style="width: 47%; color: white">
+                                <a class="btn btn-danger btn-lg btn-block mt-1 fa-lg" data-toggle="modal" data-target="#deleteModal"> Eliminar <i class="fa fa-trash"></i></a>
+                           </div>
                         </div>
 
                     </div>
@@ -145,12 +144,45 @@
 
         </div>
 
+
+
     </div>
 </div>
 
 @endsection
 
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar cliente {{ $client->name }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-0">Esta seguro que desea eliminar al cliente del sistema? <br>
+                        Se eliminaran sus correspondientes vehiculos registrados. <br> 
+                        Los tickets y la contabilidad no se veran afectados.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <form action="{{ route('admin.clients.destroy',$client) }}" method="POST" style="margin-block-end: 0em;">
+                    @csrf
+                    @method('DELETE')
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-secondary btn-lg fa-lg" data-dismiss="modal">Cerrar</button>
+                        <button class="btn btn-danger btn-lg btn-block fa-lg ml-2"> Eliminar </button>
+                    </div>
 
+                    
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 @section('javascript')
