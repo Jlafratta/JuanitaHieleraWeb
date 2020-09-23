@@ -20,10 +20,15 @@
 
     });
 
+    $('#bruto').on('change', function(event){
+
+        let netoo= document.getElementById("neto");
+        let brutoo= document.getElementById("bruto");
+        let taraa= document.getElementById("tara");
+        netoo.value=brutoo.value-taraa.value;
+
+    });
  $('#vehicles').on('change', function(event){
-
-     let vehiculo= document.getElementById("vehicles");
-
 
      $.get("/JuanitaHieleraWeb/public/admin/NoSePorqueSiLeAgregoEstoAnda/vehicles/"+event.target.value +"", function(data)
     {
@@ -33,6 +38,12 @@
     });
 
     });
+
+
+
+
+
+
 
 
   });

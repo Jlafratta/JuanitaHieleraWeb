@@ -97,7 +97,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text ">Bruto</span>
                                 </div>
-                                <input value="0.0" name="bruto" type="text" class="form-control form-control-lg" required>
+                                <input value="0.0" name="bruto" id="bruto" type="text" class="form-control form-control-lg" required>
                             </div>
                             <br>
                             <div class="input-group mb-2 form-control-lg">
@@ -111,7 +111,7 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Neto</span>
                                 </div>
-                                <input value="0.0" name="neto" type="text" class="form-control form-control-lg" required>
+                                <input value="0.0" name="neto" id="neto" type="text" class="form-control form-control-lg" required>
                             </div>
 
                             <div class="mt-4 divider"></div>
@@ -121,7 +121,7 @@
                                 <button type="submit" class="mt-2 btn btn-primary btn-lg fa-lg">Continuar <i class="fa fa-angle-double-right"></i></button>
                             </div>
                     </div>
-                    
+
                 </div>
             </form>
             </div>
