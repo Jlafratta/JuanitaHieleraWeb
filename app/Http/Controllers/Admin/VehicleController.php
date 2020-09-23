@@ -135,7 +135,7 @@ class VehicleController extends Controller
 
         if($request->ajax()){
 
-           $vehicleId=Vehicle::where('id',$id)->get();
+           $vehicleId=Vehicle::where('id' , $id)->get();
            return response()->json($vehicleId);
         }
         return null  ;
