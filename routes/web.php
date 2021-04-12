@@ -43,12 +43,12 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
        // ruta para actualizar select
     Route::get('/clients/vehicles/{id}','VehicleController@byClientId')->name('byClientId');
 
-    Route::get('NoSePorqueSiLeAgregoEstoAnda/vehicles/{id}','VehicleController@byVehicleId')->name('byVehicleId');
+
 
    // Route::get('/provinces/{id}','ClientController@localityByProvinceId')->name('LocalityByProvince');
 
 });
-
+Route::get('api/admin/vehicles/{id}','Admin\VehicleController@byVehicleId')->name('byVehicleId');
 
 
 

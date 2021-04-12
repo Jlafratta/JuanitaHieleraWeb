@@ -1,3 +1,6 @@
+//const { data } = require("jquery");
+
+
 
  $(function(){
 
@@ -20,7 +23,7 @@
 
     });
 
-    $('#bruto').on('change', function(event){
+    $('#bruto').on('keyup', function(event){
 
         let netoo= document.getElementById("neto");
         let brutoo= document.getElementById("bruto");
@@ -28,11 +31,28 @@
         netoo.value=brutoo.value-taraa.value;
 
     });
+    $('#tara').on('keyup', function(event){
+
+        let netoo= document.getElementById("neto");
+        let brutoo= document.getElementById("bruto");
+        let taraa= document.getElementById("tara");
+        netoo.value=brutoo.value-taraa.value;
+
+    });
+    // $('#neto').on('keyup', function(event){
+
+    //    $.get("/JuanitaHieleraWeb/public/api/admin/products/"+event.target.value +"", function(data)
+//     {
+            //data.price
+//         let tarita=document.getElementById("tara");
+//          tarita.value=data[0].tara;
+// });
+    // });
  $('#vehicles').on('change', function(event){
 
-     $.get("/JuanitaHieleraWeb/public/admin/NoSePorqueSiLeAgregoEstoAnda/vehicles/"+event.target.value +"", function(data)
+     $.get("/JuanitaHieleraWeb/public/api/admin/vehicles/"+event.target.value +"", function(data)
     {
-                console.log(data);
+
                 let tarita=document.getElementById("tara");
                  tarita.value=data[0].tara;
     });

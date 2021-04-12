@@ -40,10 +40,10 @@
                                 <form action="{{ route('admin.tickets.index') }}" method="GET">
                                     <div class="custom-control custom-control-inline mb-1">
                                         <select class="form-control" type="text" name="clientId" placeholder="Seleccionar cliente...">
-                                        
-                                            <option value="">Seleccionar cliente</option> 
-                                            <option value="0">CONTADO</option> 
-                                            
+
+                                            <option value="">Seleccionar cliente</option>
+                                            <option value="0">CONTADO</option>
+
                                             @foreach ($clients as $client)
                                             <option value="{{ $client->id }}">{{ $client->name }}</option>
                                             @endforeach
@@ -63,7 +63,7 @@
 
 
                         </div>
-
+                        <div id="tablaaa">
                         <table id="tableSortable" class="mb-0 table-responsive-sm table  table-striped table-hover">
                             <thead>
                             <tr>
@@ -83,7 +83,7 @@
                                 @else
                                 {{-- {{ $tickets }}    --}}
                                 @foreach ($tickets as $ticket)
-                                <tr>
+                                <tr id="printt">
                                     <th scope="row">{{ $ticket->idCompound }}</th>
                                     <td>{{ $ticket->date->format('d/m/Y') }}</td>
                                     <td>{{ $ticket->date->format('H:i:s') }}</td>
@@ -99,6 +99,7 @@
                                 @endif
                             </tbody>
                         </table><br>
+
                         <div class="d-flex justify-content-center pagination ">{{ $tickets->render() }}</div>
 
                     </div>
@@ -114,4 +115,19 @@
 
 @section('javascript')
     <script type="text/javascript" src="{{ asset('js/custom.js') }}"></script>
+    <script>
+
+
+console.log(document.getElementById('tablaaa'));
+
+var objeto=document.getElementById('tablaaa');  //obtenemos el objeto a imprimir
+var ventana=window.open('','_blank');
+ventana.document.write('<html><head>');
+ventana.document.write('<link href="{{ asset('css/main.css') }}" rel="stylesheet">');
+ventana.document.write('</head><body >');//abrimos una ventana vacía nueva
+ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+ventana.document.close();  //cerramos el documento
+ventana.print();  //imprimimos la ventana
+
+</script>
 @endsection

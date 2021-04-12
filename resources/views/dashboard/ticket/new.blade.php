@@ -129,13 +129,160 @@
 
     </div>
 </div>
+<div id="ticketPdf" style="display: none;height: 50%;">
+    <div class="example">
+     <h3 style="text-align: center;" id="ticketIdPdf">
+       Ticket:11111
+     </h3>
+
+
+     <h5 style="margin-left:80%;" >Comprobante de pago <br> para uso interno </h5>
+         <h3 >
+           <DIV style="float:left" id="productoPdf">
+            Producto:HIELO ESCAMA
+           </DIV>
+           <div style="float:right " id="pesoBrutoPdf">
+            Peso Bruto:100000
+           </div>
+         </h3>
+       <br>
+        <h3>
+          <DIV style="float:left" id="clientePdf">
+            Cliente:FRIGORIFICO DEL SUR Y ANTAR
+          </DIV>
+          <div style="float:right " id="taraPdf">
+            Tara:100000
+          </div>
+        </h3>
+        <br>
+          <h3>
+            <DIV style=" float:left" id="patentePdf">
+              Patente:1234567
+            </DIV>
+            <div style="float:right " id="pesoNetoPdf">
+              Peso Neto:100000
+            </div>
+          </h3>
+          <br><br><br>
+
+          <br>
+          <h3 >
+            <DIV style=" float:left" id="fechaPdf">
+              Fecha:00/00/0000
+            </DIV>
+            <div style=" float:right " >
+              Firma:.........................
+            </div>
+          </h3>
+
+
+          <br><br>
+          <h3 style="text-align: center;" id="ticketIdPdf">
+            Ticket:11111
+          </h3>
+
+
+          <h5 style="margin-left:80%;" >Comprobante de pago <br> para uso interno </h5>
+         <h3 >
+           <DIV style="float:left" id="productoPdf">
+            Producto:HIELO ESCAMA
+           </DIV>
+           <div style="float:right " id="pesoBrutoPdf">
+            Peso Bruto:100000
+           </div>
+         </h3>
+       <br>
+        <h3>
+          <DIV style="float:left" id="clientePdf">
+            Cliente:FRIGORIFICO DEL SUR Y ANTAR
+          </DIV>
+          <div style="float:right " id="taraPdf">
+            Tara:100000
+          </div>
+        </h3>
+        <br>
+          <h3>
+            <DIV style=" float:left" id="patentePdf">
+              Patente:1234567
+            </DIV>
+            <div style="float:right " id="pesoNetoPdf">
+              Peso Neto:100000
+            </div>
+          </h3>
+          <br><br><br>
+
+          <br>
+          <h3 >
+            <DIV style=" float:left" id="fechaPdf">
+              Fecha:00/00/0000
+            </DIV>
+            <div style=" float:right " >
+              Firma:.........................
+            </div>
+          </h3>
+
+          <br><br>
+          <h3 style="text-align: center;" id="ticketIdPdf">
+            Ticket:11111
+          </h3>
+
+          <h5 style="margin-left:80%;" >Comprobante de pago <br> para uso interno </h5>
+         <h3 >
+           <DIV style="float:left" id="productoPdf">
+            Producto:HIELO ESCAMA
+           </DIV>
+           <div style="float:right " id="pesoBrutoPdf">
+            Peso Bruto:100000
+           </div>
+         </h3>
+       <br>
+        <h3>
+          <DIV style="float:left" id="clientePdf">
+            Cliente:FRIGORIFICO DEL SUR Y ANTAR
+          </DIV>
+          <div style="float:right " id="taraPdf">
+            Tara:100000
+          </div>
+        </h3>
+        <br>
+          <h3>
+            <DIV style=" float:left" id="patentePdf">
+              Patente:1234567
+            </DIV>
+            <div style="float:right " id="pesoNetoPdf">
+              Peso Neto:100000
+            </div>
+          </h3>
+          <br><br><br>
+
+          <br>
+          <h3 >
+            <DIV style=" float:left" id="fechaPdf">
+              Fecha:00/00/0000
+            </DIV>
+            <div style=" float:right " >
+              Firma:.........................
+            </div>
+          </h3>
+
+  </div>
+  </div>
 
 @endsection
 
 
 @section('javascript')
-  <script  src="{{ asset('js/dropdownNewTicket.js') }}">
 
-  </script>
+  <script  src="{{ asset('js/dropdownNewTicket.js') }}"></script>
+  <script>
 
+
+    console.log(document.getElementById('ticketPdf'));
+    var objeto=document.getElementById('ticketPdf');  //obtenemos el objeto a imprimir
+  var ventana=window.open('','_blank');  //abrimos una ventana vacía nueva
+  ventana.document.write(objeto.innerHTML);  //imprimimos el HTML del objeto en la nueva ventana
+  ventana.document.close();  //cerramos el documento
+  ventana.print();  //imprimimos la ventana
+
+</script>
 @endsection
